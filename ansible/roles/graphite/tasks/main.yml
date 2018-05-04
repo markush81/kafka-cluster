@@ -1,0 +1,64 @@
+---
+
+- name: install epel repo
+  become: yes
+  yum:
+    name: "{{ item }}"
+    update_cache: true
+    state: installed
+  with_items:
+    - http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
+
+- name: install graphite and carbon
+  become: yes
+  yum:
+    name: "{{ item }}"
+    update_cache: true
+    state: installed
+    enablerepo: "epel"
+  with_items:
+    - graphite-web
+    - python-carbon
+  register: graphite_install
+
+- name: copy /etc/httpd/conf.d/graphite-web.conf
+  become: yes
+  template:
+    src: templates/graphite-web.conf.j2
+    dest: /etc/httpd/conf.d/graphite-web.conf
+  register: graphite_web
+  when: graphite_install.changed
+
+- name: graphite syncdb
+  become: yes
+  command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
+  args:
+    creates: /var/lib/graphite-web/graphite.db
+  when: graphite_install.changed
+  register: graphite_syncdb
+
+- name: set /var/lib/graphite-web apache:apache
+  become: yes
+  file:
+    path: /var/lib/graphite-web
+    owner: apache
+    group: apache
+    recurse: yes
+
+- name: restart carbon-cache
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: carbon-cache
+    daemon_reload: yes
+  when: graphite_install.changed or graphite_syncdb.changed
+
+- name: restart httpd
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: httpd
+    daemon_reload: yes
+  when: graphite_install.changed or graphite_web.changed

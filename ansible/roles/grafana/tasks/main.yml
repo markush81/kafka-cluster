@@ -1,0 +1,81 @@
+---
+- name: add grafana repo
+  become: yes
+  yum_repository:
+    name: grafana
+    description: Grafana YUM repo
+    baseurl: https://packagecloud.io/grafana/stable/el/$releasever/$basearch/
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana
+    sslverify: yes
+    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+
+- name: add the repository keys
+  become: yes
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  with_items:
+    - https://packagecloud.io/gpg.key
+    - https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana
+  register: import_keys
+
+- name: yum make cache
+  become: yes
+  command: "yum -q makecache -y"
+  args:
+    warn: false
+  when: import_keys.changed
+
+- name: install grafana
+  become: yes
+  yum:
+    update_cache: yes
+    name: grafana
+    state: installed
+  register: grafana_install
+
+- name: setup datasources
+  become: yes
+  template:
+    src: templates/datasources/{{ item }}.yml.j2
+    dest: /etc/grafana/provisioning/datasources/{{ item }}.yml
+  with_items:
+    - graphite
+    - elasticsearch
+  register: grafana_datasources
+
+- name: setup dashboards
+  become: yes
+  template:
+    src: templates/dashboards/dashboards.yml.j2
+    dest: /etc/grafana/provisioning/dashboards/dashboards.yml
+  register: grafana_dashboards_setup
+
+- name: create {{ grafana_dashboards }}
+  become: yes
+  file:
+    path: "{{ grafana_dashboards }}"
+    state: directory
+    mode: 0755
+  register: grafana_dashboards_dir
+
+- name: copy dashboards
+  become: yes
+  copy:
+    src: dashboards/{{ item }}.json
+    dest: "{{ grafana_dashboards }}/{{ item }}.json"
+  with_items:
+    - system
+    - kafka
+  register: grafana_dashbaords_items
+
+- name: restart grafana-server
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: grafana-server
+    daemon_reload: yes
+  when: grafana_install.changed or grafana_datasources.changed or grafana_dashboards_setup.changed or grafana_dashboards_dir.changed or grafana_dashbaords_items.changed

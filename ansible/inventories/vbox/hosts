@@ -1,0 +1,17 @@
+[zookeeper]
+kafka-1
+kafka-2
+kafka-3
+
+[kafka]
+kafka-1
+kafka-2
+kafka-3
+
+
+[mon]
+mon-1
+
+[network:children]
+mon
+kafka

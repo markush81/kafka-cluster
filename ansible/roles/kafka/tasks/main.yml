@@ -1,0 +1,76 @@
+---
+- name: download {{ url }}
+  run_once: true
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ download }}/{{ file }}"
+
+- name: extract {{ download }}/{{ file }}
+  become: yes
+
+  unarchive:
+    src: "{{ download }}/{{ file }}"
+    dest: "{{ usr_local }}"
+    copy: no
+    creates: "{{ kafka_home }}"
+  register: kafka_install
+
+- name: set ownership on {{ kafka_home }}
+  become: yes
+  file:
+    path: "{{ kafka_home }}"
+    owner: vagrant
+    group: vagrant
+    recurse: yes
+    mode: 0755
+
+- name: set PATH=$PATH:{{ kafka_home }}/bin
+  become: yes
+  lineinfile:
+    dest: "{{ etc_profiles }}/kafka.sh"
+    create: yes
+    state: present
+    regexp: '^PATH'
+    line: 'PATH=$PATH:{{ kafka_home }}/bin'
+
+- name: copy server.properties {{ kafka_home }}/config/server.properties
+  become: yes
+  template:
+    src: templates/server.properties.j2
+    dest: "{{ kafka_home }}/config/server.properties"
+  register: kafka_config
+
+- name: copy jmxtrans-agent.xml {{ jmxtrans_dest }}/{{ jmxagent }}
+  become: yes
+  template:
+    src: templates/jmxtrans-agent.xml.j2
+    dest: "{{ jmxtrans_dest }}/{{ jmxagent }}"
+  register: kafka_config_jmx
+
+- name: create {{ kafka_log_dir }}
+  file:
+    path: "{{ kafka_log_dir }}"
+    state: directory
+
+- name: install kafka systemd unit file
+  become: yes
+  template:
+    src: templates/kafka.service.j2
+    dest: "{{ system_units }}/kafka.service"
+  register: kafka_service
+
+- name: restart kafka
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: kafka
+    daemon_reload: yes
+  when: kafka_config.changed or kafka_config_jmx.changed or kafka_service.changed
+
+- name: create sample topic
+  become: yes
+  command: "{{ kafka_home }}/bin/kafka-topics.sh --create --zookeeper {{ groups['zookeeper'][0] }}:2181 --replication-factor 2 --partitions 6 --topic sample"
+  run_once: true
+  ignore_errors: true
+  when: kafka_install.changed

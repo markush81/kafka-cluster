@@ -1,0 +1,7 @@
+- module: kafka
+  metricsets:
+    - "partition"
+    - "consumergroup"
+  period: 10s
+  hosts:
+    - "{{ inventory_hostname }}:9092"

@@ -1,0 +1,29 @@
+- hosts: all
+  remote_user: vagrant
+  serial: 100%
+  roles:
+  - java
+
+- hosts: zookeeper
+  remote_user: vagrant
+  serial: 100%
+  roles:
+    - zookeeper
+
+- hosts: kafka
+  remote_user: vagrant
+  serial: 100%
+  roles:
+    - kafka
+    - metricbeat
+
+- hosts: mon
+  remote_user: vagrant
+  serial: 100%
+  roles:
+  - elasticsearch
+  - logstash
+  - kibana
+  - graphite
+  - grafana
+  - metricbeat

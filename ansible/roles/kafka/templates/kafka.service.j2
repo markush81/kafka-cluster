@@ -1,0 +1,16 @@
+[Unit]
+Description=Kafka Service
+After=network.target
+
+[Service]
+Environment=JAVA_HOME=/usr/java/latest
+Environment=KAFKA_OPTS=-javaagent:{{ jmxtrans_dest }}/jmxtrans-agent.jar={{ jmxtrans_dest }}/{{ jmxagent }}
+Environment=JMX_PORT=5555
+Type=forking
+User=vagrant
+ExecStart={{ kafka_home }}/bin/kafka-server-start.sh -daemon {{ kafka_home }}/config/server.properties
+ExecStop={{ kafka_home }}/bin/kafka-server-start.sh stop
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

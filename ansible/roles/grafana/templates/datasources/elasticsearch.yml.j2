@@ -1,0 +1,16 @@
+apiVersion: 1
+
+deleteDatasources:
+   - name: Elastic
+     orgId: 1
+
+datasources:
+  - name: Elastic
+    type: elasticsearch
+    access: proxy
+    database: "[*-]YYYY.MM.DD"
+    url: http://{{ groups['mon'][0] }}:9200
+    jsonData:
+      interval: Daily
+      timeField: "@timestamp"
+      esVersion: 56

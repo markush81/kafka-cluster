@@ -1,8 +1,8 @@
-#Fast Data Cluster
+# Kafka Data Cluster
 
 ## Content
 
-In case you need a local cluster providing Kafka, Cassandra and Spark you're at the right place.
+In case you need a local cluster providing Kafka including a monitoring suite.
 
 * [Apache Kafka 1.1.0](http://kafka.apache.org/11/documentation.html)
 * [Elastic Search 6.2.4](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/index.html)

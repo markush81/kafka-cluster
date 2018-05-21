@@ -6,24 +6,37 @@
 
 - hosts: zookeeper
   remote_user: vagrant
-  serial: 100%
+  serial: 33%
   roles:
     - zookeeper
 
 - hosts: kafka
   remote_user: vagrant
-  serial: 100%
+  serial: 33%
   roles:
     - kafka
     - metricbeat
 
-- hosts: mon
+- hosts: elk
   remote_user: vagrant
   serial: 100%
   roles:
   - elasticsearch
   - logstash
   - kibana
+  - metricbeat
+
+- hosts: grafana
+  remote_user: vagrant
+  serial: 100%
+  roles:
   - graphite
   - grafana
+  - metricbeat
+
+
+- hosts: prometheus
+  remote_user: vagrant
+  serial: 100%
+  roles:
   - metricbeat

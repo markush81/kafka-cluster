@@ -9,7 +9,7 @@ datasources:
     type: elasticsearch
     access: proxy
     database: "[*-]YYYY.MM.DD"
-    url: http://{{ groups['mon'][0] }}:9200
+    url: http://{{ groups['elk'][0] }}:9200
     jsonData:
       interval: Daily
       timeField: "@timestamp"

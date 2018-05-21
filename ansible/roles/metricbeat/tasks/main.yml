@@ -37,15 +37,14 @@
     daemon_reload: yes
   when: metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed
 
-
 - name: setup metricbeat elasticsearch template
   become: yes
   run_once: true
-  command: metricbeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['mon'][0] }}:9200"]'
-  when: metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed
+  command: metricbeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]'
+  when: (metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed) and groups['elk'][0] == inventory_hostname
 
 - name: setup metricbeat dashboards
   become: yes
   run_once: true
-  command: metricbeat setup --dashboards -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['mon'][0] }}:9200"]'
-  when: metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed
+  command: metricbeat setup --dashboards -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]'
+  when: (metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed) and groups['elk'][0] == inventory_hostname

@@ -16,8 +16,8 @@ In case you need a local cluster providing Kafka including a monitoring suite.
 
 * [Vagrant](https://www.vagrantup.com) (tested with 2.1.1)
 * [VirtualBox](http://virtualbox.org) (tested with 5.2.12)
-* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.5.2)
-* The VMs take approx 10 GB of RAM, so you should have more than that.
+* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.5.3)
+* The VMs take approx 12,5 GB of RAM, so you should have more than that.
 
 
 :warning: Vagrant might ask you for your admin password. The reason behind is, that `vagrant-hostsupdater` is used to have the vms available with their names in your network.
@@ -42,10 +42,12 @@ The result if everything wents fine should be
 
 | IP | Hostname | Description | Settings |
 |:--- |:-- |:-- |:-- |
-|192.168.10.2|mon-1|running elk, grafana, graphite and metricbeat| 4096 MB RAM |
-|192.168.10.3|kafka-1|running a kafka broker and metricbeat| 2048 MB RAM |
-|192.168.10.4|kafka-2|running a kafka broker and metricbeat| 2048 MB RAM |
-|192.168.10.5|kafka-3|running a kafka broker and metricbeat| 2048 MB RAM |
+|192.168.10.2|mon-1|running elk and metricbeat| 3096 MB RAM |
+|192.168.10.3|mon-2|running grafana, graphite and metricbeat| 1536 MB RAM |
+|192.168.10.4|mon-3|:warning: not yet done. running prometheus and metricbeat| 2048 MB RAM |
+|192.168.10.5|kafka-1|running a kafka broker and metricbeat| 2048 MB RAM |
+|192.168.10.6|kafka-2|running a kafka broker and metricbeat| 2048 MB RAM |
+|192.168.10.7|kafka-3|running a kafka broker and metricbeat| 2048 MB RAM |
 
 
 ### Connections
@@ -56,8 +58,8 @@ The result if everything wents fine should be
 |Kafka Brokers|kafka-1:9092,kafka-2:9092,kafka-3:9092|
 |Kibana|[http://mon-1:5601](http://mon-1:5601)|
 |Elasticsearch|[http://mon-1:9200](http://mon-1:9200)|
-|Grafana|[http://mon-1:3000](http://mon-1:3000)|
-|Graphite|[http://mon-1](http://mon-1)|
+|Grafana|[http://mon-2:3000](http://mon-2:3000)|
+|Graphite|[http://mon-2](http://mon-2)|
 
 
 # Monitoring

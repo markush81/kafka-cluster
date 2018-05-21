@@ -15,7 +15,7 @@
 
     </queries>
     <outputWriter class="org.jmxtrans.agent.GraphitePlainTextTcpOutputWriter">
-        <host>{{ groups['mon'][0] }}</host>
+        <host>{{ groups['grafana'][0] }}</host>
         <port>2003</port>
         <namePrefix>servers.{{ inventory_hostname }}.zookeeper.</namePrefix>
     </outputWriter>

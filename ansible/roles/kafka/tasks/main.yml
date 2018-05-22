@@ -40,12 +40,26 @@
     dest: "{{ kafka_home }}/config/server.properties"
   register: kafka_config
 
+- name: copy kafka.environment {{ kafka_home }}/kafka.environment
+  become: yes
+  template:
+    src: templates/kafka.environment.j2
+    dest: "{{ kafka_home }}/kafka.environment"
+  register: kafka_env
+
 - name: copy jmxtrans-agent.xml {{ jmxtrans_dest }}/{{ jmxagent }}
   become: yes
   template:
     src: templates/jmxtrans-agent.xml.j2
     dest: "{{ jmxtrans_dest }}/{{ jmxagent }}"
   register: kafka_config_jmx
+
+- name: copy prometheus-agent.yaml {{ prometheus_jmx_dest }}/{{ prometheusagent }}
+  become: yes
+  template:
+    src: templates/prometheus-agent.yaml.j2
+    dest: "{{ prometheus_jmx_dest }}/{{ prometheusagent }}"
+  register: kafka_config_prometheus
 
 - name: create {{ kafka_log_dir }}
   file:
@@ -66,7 +80,7 @@
     state: restarted
     name: kafka
     daemon_reload: yes
-  when: kafka_config.changed or kafka_config_jmx.changed or kafka_service.changed
+  when: kafka_config.changed or kafka_config_jmx.changed or kafka_config_prometheus.changed or kafka_service.changed or kafka_env.changed
 
 - name: create sample topic
   become: yes

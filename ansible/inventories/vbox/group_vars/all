@@ -3,3 +3,4 @@ usr_local: /usr/local
 etc_profiles: /etc/profile.d
 system_units: /etc/systemd/system
 jmxtrans_dest: /usr/local/jmxtrans
+prometheus_jmx_dest: /usr/local/prometheus_jmx

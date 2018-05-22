@@ -40,3 +40,4 @@
   serial: 100%
   roles:
   - metricbeat
+  - prometheus

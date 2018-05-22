@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "mon-1" do |mon|
     mon.vm.hostname = "mon-1"
     mon.vm.provider "virtualbox" do |vb|
-      vb.memory = "3096"
+      vb.memory = "4096"
       vb.cpus = "2"
     end
     mon.vm.network :private_network, ip: "192.168.10.2", auto_config: true
@@ -39,8 +39,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "mon-2" do |mon|
     mon.vm.hostname = "mon-2"
     mon.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
-      vb.cpus = "2"
+      vb.memory = "1536"
+      vb.cpus = "1"
     end
     mon.vm.network :private_network, ip: "192.168.10.3", auto_config: true
 
@@ -56,8 +56,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "mon-3" do |mon|
     mon.vm.hostname = "mon-3"
     mon.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
-      vb.cpus = "2"
+      vb.memory = "1536"
+      vb.cpus = "1"
     end
     mon.vm.network :private_network, ip: "192.168.10.4", auto_config: true
 

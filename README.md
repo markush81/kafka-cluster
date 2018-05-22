@@ -10,6 +10,7 @@ In case you need a local cluster providing Kafka including a monitoring suite.
 * [Kibana 6.2.4](https://www.elastic.co/guide/en/kibana/6.2/index.html)
 * [Grafana 5.1.2](https://grafana.com)
 * [Graphite](https://graphiteapp.org)
+* [Prometheus 2.2.1](https://prometheus.io)
 * [Jmxtrans Agent 1.2.6](https://github.com/jmxtrans/jmxtrans-agent/)
 
 ## Prerequisites
@@ -42,9 +43,9 @@ The result if everything wents fine should be
 
 | IP | Hostname | Description | Settings |
 |:--- |:-- |:-- |:-- |
-|192.168.10.2|mon-1|running elk and metricbeat| 3096 MB RAM |
+|192.168.10.2|mon-1|running elk and metricbeat| 4096 MB RAM |
 |192.168.10.3|mon-2|running grafana, graphite and metricbeat| 1536 MB RAM |
-|192.168.10.4|mon-3|:warning: not yet done. running prometheus and metricbeat| 2048 MB RAM |
+|192.168.10.4|mon-3|running prometheus and metricbeat| 1536 MB RAM |
 |192.168.10.5|kafka-1|running a kafka broker and metricbeat| 2048 MB RAM |
 |192.168.10.6|kafka-2|running a kafka broker and metricbeat| 2048 MB RAM |
 |192.168.10.7|kafka-3|running a kafka broker and metricbeat| 2048 MB RAM |
@@ -60,6 +61,7 @@ The result if everything wents fine should be
 |Elasticsearch|[http://mon-1:9200](http://mon-1:9200)|
 |Grafana|[http://mon-2:3000](http://mon-2:3000)|
 |Graphite|[http://mon-2](http://mon-2)|
+|Prometheus (graph)|[http://mon-3:9090/graph](http://mon-3:9090/graph)|
 
 
 # Monitoring

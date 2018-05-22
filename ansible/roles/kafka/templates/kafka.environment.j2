@@ -1,0 +1,3 @@
+JAVA_HOME=/usr/java/latest
+KAFKA_OPTS=-javaagent:{{ jmxtrans_dest }}/jmxtrans-agent.jar={{ jmxtrans_dest }}/{{ jmxagent }} -javaagent:{{ prometheus_jmx_dest }}/prometheus-agent.jar=8080:{{ prometheus_jmx_dest }}/{{ prometheusagent }}
+JMX_PORT=5555

@@ -6,18 +6,27 @@
     headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
     dest: "{{ download }}/{{ file }}"
 
-- name: create directory {{ jmxtrans_dest }}
+- name: create directory {{ item }}
   become: yes
   file:
-    path: "{{ jmxtrans_dest }}"
+    path: "{{ item }}"
     state: directory
     mode: 0755
+  with_items:
+    - "{{ jmxtrans_dest }}"
+    - "{{ prometheus_jmx_dest }}"
 
 - name: download {{ jmx_trans }}
   become: yes
   get_url:
     url: "{{ jmx_trans }}"
     dest: "{{ jmxtrans_dest }}/jmxtrans-agent.jar"
+
+- name: download {{ prometheus_jmx }}
+  become: yes
+  get_url:
+    url: "{{ prometheus_jmx }}"
+    dest: "{{ prometheus_jmx_dest }}/prometheus-agent.jar"
 
 - name: install {{ download }}/{{ file }}
   become: yes

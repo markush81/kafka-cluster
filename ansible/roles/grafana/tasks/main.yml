@@ -44,6 +44,7 @@
   with_items:
     - graphite
     - elasticsearch
+    - prometheus
   register: grafana_datasources
 
 - name: setup dashboards
@@ -69,6 +70,7 @@
   with_items:
     - system
     - kafka
+    - kafka_prometheus
   register: grafana_dashbaords_items
 
 - name: restart grafana-server

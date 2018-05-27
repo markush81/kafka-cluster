@@ -68,8 +68,9 @@
     src: dashboards/{{ item }}.json
     dest: "{{ grafana_dashboards }}/{{ item }}.json"
   with_items:
-    - system
-    - kafka
+    - system_kafka
+    - system_mon
+    - kafka_graphite
     - kafka_prometheus
   register: grafana_dashbaords_items
 

@@ -8,7 +8,7 @@ In case you need a local cluster providing Kafka including a monitoring suite.
 * [Elastic Search 6.2.4](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/index.html)
 * [Logstash 6.2.4](https://www.elastic.co/guide/en/logstash/6.2/index.html)
 * [Kibana 6.2.4](https://www.elastic.co/guide/en/kibana/6.2/index.html)
-* [Grafana 5.1.2](https://grafana.com)
+* [Grafana 5.1.3](https://grafana.com)
 * [Graphite](https://graphiteapp.org)
 * [Prometheus 2.2.1](https://prometheus.io)
 * [Jmxtrans Agent 1.2.6](https://github.com/jmxtrans/jmxtrans-agent/)

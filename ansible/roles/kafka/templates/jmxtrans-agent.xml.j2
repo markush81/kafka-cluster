@@ -3,6 +3,7 @@
   <queries>
     <!-- JVM -->
     <query objectName="java.lang:type=Memory" attributes="HeapMemoryUsage,NonHeapMemoryUsage" resultAlias="jvm.#attribute#.#key#"/>
+    <query objectName="java.lang:type=GarbageCollector,name=*" attributes="CollectionTime,CollectionCount" resultAlias="jvm.%name%.#attribute#"/>
     <query objectName="java.lang:type=ClassLoading" attribute="LoadedClassCount" resultAlias="jvm.#attribute#"/>
     <query objectName="java.lang:type=Threading" attribute="ThreadCount" resultAlias="jvm.#attribute#"/>
     <!-- Kafka -->
@@ -11,61 +12,10 @@
 
     <query objectName="kafka.server:type=BrokerTopicMetrics,name=*,topic=*" attributes="OneMinuteRate,Count,MeanRate" resultAlias="BrokerTopicMetrics.%name%.%topic%.#attribute#"/>
     <query objectName="kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=*,topic=*,partition=*" attribute="Value" resultAlias="FetcherLagMetrics.%name%.%clientId%.%topic%.%partition%"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=Produce" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchConsumer" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchFollower" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
 
-    <!--query objectName="kafka.controller:type=ControllerStats,name=LeaderElectionRateAndTimeMs" attribute="MeanRate" resultAlias="controller.ControllerStats.LeaderElectionRateAndTimeMs.#attribute#"/>
-    <query objectName="kafka.controller:type=ControllerStats,name=UncleanLeaderElectionsPerSec" attribute="MeanRate" resultAlias="controller.ControllerStats.UncleanLeaderElectionsPerSec.#attribute#"/>
-
-    <query objectName="kafka.server:type=ReplicaManager,name=PartitionCount" attribute="Value" resultAlias="server.partitionCount"/>
-    <query objectName="kafka.server:type=ReplicaManager,name=LeaderCount" attribute="Value" resultAlias="server.leaderCount"/>
-    <query objectName="kafka.server:type=ReplicaFetcherManager,name=MaxLag,clientId=Replica" attribute="Value" resultAlias="server.maxLag"/>
-    <query objectName="kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent" attribute="MeanRate" resultAlias="server.requestHandlerAvgIdlePercent"/>
-
-    <query objectName="kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent" attribute="Value" resultAlias="network.networkProcessorAvgIdlePercent"/>
-    <query objectName="kafka.network:type=RequestChannel,name=RequestQueueSize" attribute="Value" resultAlias="network.requestQueueSize"/>
-
-    <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=Produce" attribute="Mean" resultAlias="network.produce.totalTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchConsumer" attribute="Mean" resultAlias="network.fetchConsumer.totalTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchFollower" attribute="Mean" resultAlias="network.fetchFollower.totalTimeMs"/>
-
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=Produce" attribute="Mean" resultAlias="network.produce.requestQueueTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=FetchConsumer" attribute="Mean" resultAlias="network.fetchConsumer.requestQueueTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=FetchFollower" attribute="Mean" resultAlias="network.fetchFollower.requestQueueTimeMs"/>
-
-    <query objectName="kafka.network:type=RequestMetrics,name=LocalTimeMs,request=Produce" attribute="Mean" resultAlias="network.produce.localTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=LocalTimeMs,request=FetchConsumer" attribute="Mean" resultAlias="network.fetchConsumer.localTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=LocalTimeMs,request=FetchFollower" attribute="Mean" resultAlias="network.fetchFollower.localTimeMs"/>
-
-    <query objectName="kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=Produce" attribute="Mean" resultAlias="network.produce.remoteTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=FetchConsumer" attribute="Mean" resultAlias="network.fetchConsumer.remoteTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=FetchFollower" attribute="Mean" resultAlias="network.fetchFollower.remoteTimeMs"/>
-
-    <query objectName="kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=Produce" attribute="Mean" resultAlias="network.produce.responseQueueTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=FetchConsumer" attribute="Mean" resultAlias="network.fetchConsumer.responseQueueTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=FetchFollower" attribute="Mean" resultAlias="network.fetchFollower.responseQueueTimeMs"/>
-
-    <query objectName="kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=Produce" attribute="Mean" resultAlias="network.produce.responseSendTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=FetchConsumer" attribute="Mean" resultAlias="network.fetchConsumer.responseSendTimeMs"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=FetchFollower" attribute="Mean" resultAlias="network.fetchFollower.responseSendTimeMs"/>
-
-    <query objectName="kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec" attribute="MeanRate" resultAlias="server.messagesInPerSec"/-->
-
-    <!--query objectName="kafka.log:type=LogFlushStats,name=LogFlushRateAndTimeMst" attribute="Value" resultAlias="log.logFlushRateAndTimeMst"/-->
-
-    <!--query objectName="kafka.server:type=ReplicaManager,name=IsrShrinksPerSec" attribute="MeanRate" resultAlias="server.isrShrinksPerSec"/>
-    <query objectName="kafka.server:type=ReplicaManager,name=IsrExpandsPerSec" attribute="MeanRate" resultAlias="server.isrExpandsPerSec"/>
-    <query objectName="kafka.server:type=DelayedOperationPurgatory,delayedOperation=Produce,name=PurgatorySize" attribute="Value" resultAlias="server.delayedOperationPurgatory"/>
-    <query objectName="kafka.server:type=DelayedOperationPurgatory,delayedOperation=Fetch,name=PurgatorySize" attribute="Value" resultAlias="server.delayedOperationPurgatory"/-->
-    <!-- Zookeeper -->
-    <!--query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperDisconnectsPerSec" attribute="MeanRate" resultAlias="server.zooKeeperDisconnectsPerSec"/>
-    <query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperExpiresPerSec" attribute="MeanRate" resultAlias="server.zooKeeperExpiresPerSec"/>
-    <query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperSyncConnectsPerSec" attribute="MeanRate" resultAlias="server.zooKeeperSyncConnectsPerSec"/>
-    <query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperAuthFailuresPerSec" attribute="MeanRate" resultAlias="server.zooKeeperAuthFailuresPerSec"/>
-    <query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperReadOnlyConnectsPerSec" attribute="MeanRate" resultAlias="server.zooKeeperReadOnlyConnectsPerSec"/>
-    <query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperSaslAuthenticationsPerSec" attribute="MeanRate" resultAlias="server.zooKeeperSaslAuthenticationsPerSec"/>
-    <query objectName="kafka.server:type=SessionExpireListener,name=ZooKeeperExpiredPerSec" attribute="MeanRate" resultAlias="server.zooKeeperExpiredPerSec"/-->
+    <query objectName="kafka.network:type=RequestMetrics,name=*,request=Produce" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=*,request=FetchConsumer" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=*,request=FetchFollower" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
   </queries>
   <outputWriter class="org.jmxtrans.agent.GraphitePlainTextTcpOutputWriter">
     <host>{{ groups['grafana'][0] }}</host>

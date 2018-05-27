@@ -16,11 +16,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 1,
-  "iteration": 1526233100352,
+  "id": 3,
+  "iteration": 1527404814587,
   "links": [],
   "panels": [
     {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -28,6 +29,7 @@
         "y": 0
       },
       "id": 24,
+      "panels": [],
       "title": "Kafka",
       "type": "row"
     },
@@ -386,6 +388,7 @@
       "repeatDirection": "h",
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2675",
           "selected": false,
           "text": "kafka-1",
           "value": "kafka-1"
@@ -464,7 +467,7 @@
         "x": 8,
         "y": 6
       },
-      "id": 69,
+      "id": 75,
       "legend": {
         "avg": true,
         "current": false,
@@ -478,17 +481,18 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 46,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2676",
           "selected": false,
           "text": "kafka-2",
           "value": "kafka-2"
@@ -503,13 +507,13 @@
           "$$hashKey": "object:744",
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, 5, 4, 6)"
+          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
         },
         {
           "$$hashKey": "object:810",
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, 5, 4, 6)"
+          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
         }
       ],
       "thresholds": [],
@@ -567,7 +571,7 @@
         "x": 16,
         "y": 6
       },
-      "id": 70,
+      "id": 76,
       "legend": {
         "avg": true,
         "current": false,
@@ -581,17 +585,18 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 46,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2677",
           "selected": false,
           "text": "kafka-3",
           "value": "kafka-3"
@@ -606,13 +611,13 @@
           "$$hashKey": "object:744",
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, 5, 4, 6)"
+          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
         },
         {
           "$$hashKey": "object:810",
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, 5, 4, 6)"
+          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
         }
       ],
       "thresholds": [],
@@ -693,6 +698,7 @@
       "repeatDirection": "h",
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2675",
           "selected": false,
           "text": "kafka-1",
           "value": "kafka-1"
@@ -759,248 +765,12 @@
       "datasource": "Graphite",
       "fill": 1,
       "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 13
-      },
-      "id": 71,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
-      "repeatPanelId": 68,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-2",
-          "value": "kafka-2"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "$$hashKey": "object:367",
-          "bucketAggs": [
-            {
-              "$$hashKey": "object:383",
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "metrics": [
-            {
-              "$$hashKey": "object:381",
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.FetcherLagMetrics.ConsumerLag.*.*.*, 5, 6, 7)",
-          "timeField": "@timestamp"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "ConsumerLag - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:471",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:472",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 13
-      },
-      "id": 72,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
-      "repeatPanelId": 68,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-3",
-          "value": "kafka-3"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "$$hashKey": "object:367",
-          "bucketAggs": [
-            {
-              "$$hashKey": "object:383",
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "metrics": [
-            {
-              "$$hashKey": "object:381",
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.FetcherLagMetrics.ConsumerLag.*.*.*, 5, 6, 7)",
-          "timeField": "@timestamp"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "ConsumerLag - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:471",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:472",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 22
+        "y": 13
       },
-      "id": 73,
+      "id": 77,
       "legend": {
         "alignAsTable": false,
         "avg": true,
@@ -1014,17 +784,18 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 56,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2676",
           "selected": false,
           "text": "kafka-2",
           "value": "kafka-2"
@@ -1038,7 +809,7 @@
         {
           "$$hashKey": "object:466",
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.*.LeaveGroup.MeanRate, 5, 6)"
+          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
         }
       ],
       "thresholds": [],
@@ -1065,7 +836,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1094,9 +865,9 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 22
+        "y": 13
       },
-      "id": 74,
+      "id": 78,
       "legend": {
         "alignAsTable": false,
         "avg": true,
@@ -1110,17 +881,18 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 56,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2677",
           "selected": false,
           "text": "kafka-3",
           "value": "kafka-3"
@@ -1134,7 +906,7 @@
         {
           "$$hashKey": "object:466",
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.*.LeaveGroup.MeanRate, 5, 6)"
+          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
         }
       ],
       "thresholds": [],
@@ -1161,7 +933,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1185,7 +957,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 20
       },
       "id": 6,
       "panels": [],
@@ -1203,7 +975,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 30
+        "y": 21
       },
       "id": 2,
       "legend": {
@@ -1227,6 +999,7 @@
       "repeatDirection": "h",
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2675",
           "selected": false,
           "text": "kafka-1",
           "value": "kafka-1"
@@ -1293,9 +1066,9 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 30
+        "y": 21
       },
-      "id": 75,
+      "id": 69,
       "legend": {
         "avg": true,
         "current": false,
@@ -1315,10 +1088,11 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 2,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2676",
           "selected": false,
           "text": "kafka-2",
           "value": "kafka-2"
@@ -1385,9 +1159,9 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 21
       },
-      "id": 76,
+      "id": 70,
       "legend": {
         "avg": true,
         "current": false,
@@ -1407,10 +1181,11 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 2,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2677",
           "selected": false,
           "text": "kafka-3",
           "value": "kafka-3"
@@ -1477,7 +1252,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 37
+        "y": 28
       },
       "id": 10,
       "legend": {
@@ -1501,6 +1276,7 @@
       "repeatDirection": "h",
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2675",
           "selected": false,
           "text": "kafka-1",
           "value": "kafka-1"
@@ -1567,9 +1343,9 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 37
+        "y": 28
       },
-      "id": 77,
+      "id": 71,
       "legend": {
         "avg": true,
         "current": false,
@@ -1589,10 +1365,11 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 10,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2676",
           "selected": false,
           "text": "kafka-2",
           "value": "kafka-2"
@@ -1659,9 +1436,9 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 37
+        "y": 28
       },
-      "id": 78,
+      "id": 72,
       "legend": {
         "avg": true,
         "current": false,
@@ -1681,10 +1458,11 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 10,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2677",
           "selected": false,
           "text": "kafka-3",
           "value": "kafka-3"
@@ -1751,7 +1529,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 44
+        "y": 35
       },
       "id": 16,
       "legend": {
@@ -1775,6 +1553,7 @@
       "repeatDirection": "h",
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2675",
           "selected": false,
           "text": "kafka-1",
           "value": "kafka-1"
@@ -1841,9 +1620,9 @@
         "h": 6,
         "w": 8,
         "x": 8,
-        "y": 44
+        "y": 35
       },
-      "id": 79,
+      "id": 73,
       "legend": {
         "avg": true,
         "current": false,
@@ -1863,10 +1642,11 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 16,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2676",
           "selected": false,
           "text": "kafka-2",
           "value": "kafka-2"
@@ -1933,9 +1713,9 @@
         "h": 6,
         "w": 8,
         "x": 16,
-        "y": 44
+        "y": 35
       },
-      "id": 80,
+      "id": 74,
       "legend": {
         "avg": true,
         "current": false,
@@ -1955,10 +1735,11 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1526233100352,
+      "repeatIteration": 1527404814587,
       "repeatPanelId": 16,
       "scopedVars": {
         "hostname": {
+          "$$hashKey": "object:2677",
           "selected": false,
           "text": "kafka-3",
           "value": "kafka-3"
@@ -2013,9 +1794,132 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 2,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 41
+      },
+      "id": 68,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "hostname",
+      "repeatDirection": "h",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:3191",
+          "alias": "/CollectionTime/",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "$$hashKey": "object:2341",
+          "bucketAggs": [
+            {
+              "$$hashKey": "object:2357",
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "hide": false,
+          "metrics": [
+            {
+              "$$hashKey": "object:2355",
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Old_Generation.*, 4, 5)",
+          "timeField": "@timestamp"
+        },
+        {
+          "$$hashKey": "object:2970",
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Young_Generation.*, 4, 5)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "GarbageCollector - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2723",
+          "format": "short",
+          "label": "Count",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2724",
+          "format": "ms",
+          "label": "Time",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
-  "refresh": "5s",
+  "refresh": "30s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -2024,8 +1928,11 @@
       {
         "allValue": null,
         "current": {
+          "tags": [],
           "text": "All",
-          "value": "$__all"
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "Graphite",
         "hide": 0,
@@ -2047,7 +1954,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -2076,7 +1983,7 @@
     ]
   },
   "timezone": "",
-  "title": "Kafka Overview (Metricbeat)",
+  "title": "Kafka Overview (Graphite)",
   "uid": "esoMEoniz",
-  "version": 2
+  "version": 1
 }

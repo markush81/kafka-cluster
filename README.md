@@ -18,7 +18,7 @@ In case you need a local cluster providing Kafka including a monitoring suite.
 * [Vagrant](https://www.vagrantup.com) (tested with 2.1.1)
 * [VirtualBox](http://virtualbox.org) (tested with 5.2.12)
 * [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.5.3)
-* The VMs take approx 12,5 GB of RAM, so you should have more than that.
+* The VMs take approx 13 GB of RAM, so you should have more than that.
 
 
 :warning: Vagrant might ask you for your admin password. The reason behind is, that `vagrant-hostsupdater` is used to have the vms available with their names in your network.

@@ -98,7 +98,7 @@
         {
           "$$hashKey": "object:511",
           "refId": "A",
-          "target": "sumSeries(servers.*.kafka.ActiveControllerCount)"
+          "target": "sumSeries(servers.*.kafka.KafkaController.ActiveControllerCount.Value)"
         }
       ],
       "thresholds": "0.01,1",
@@ -178,7 +178,7 @@
         {
           "$$hashKey": "object:973",
           "refId": "A",
-          "target": "sumSeries(servers.*.kafka.OfflinePartitionsCount)"
+          "target": "sumSeries(servers.*.kafka.KafkaController.OfflinePartitionsCount.Value)"
         }
       ],
       "thresholds": "0.01,0.01",
@@ -257,7 +257,7 @@
         {
           "$$hashKey": "object:1055",
           "refId": "A",
-          "target": "sumSeries(servers.*.kafka.UnderReplicatedPartitions, *)"
+          "target": "sumSeries(servers.*.kafka.ReplicaManager.UnderReplicatedPartitions.Value, *)"
         }
       ],
       "thresholds": "0.01,0.01",
@@ -336,7 +336,7 @@
         {
           "$$hashKey": "object:1137",
           "refId": "A",
-          "target": "sumSeries(servers.*.kafka.UnderMinIsrPartitionCount)"
+          "target": "sumSeries(servers.*.kafka.ReplicaManager.UnderMinIsrPartitionCount.Value)"
         }
       ],
       "thresholds": "0.01,0.01",

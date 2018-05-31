@@ -17,6 +17,10 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "exchange", "/home/vagrant/exchange", create: true
   config.vm.synced_folder "ansible", "/home/vagrant/ansible", create: true
 
+  config.trigger.after :destroy do |trigger|
+    trigger.run = { inline: 'rm -rf exchange/ssl && rm -rf exchange/ssl-client'}
+  end
+
   config.vm.provision :shell, inline: "ifup eth1", run: "always"
 
   config.vm.define "mon-1" do |mon|
@@ -103,5 +107,4 @@ Vagrant.configure("2") do |config|
       end
     end
   end
-
 end

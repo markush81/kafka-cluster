@@ -56,7 +56,7 @@ The result if everything wents fine should be
 | Name |  |
 |:-- |:-- |
 |Zookeeper|kafka-1:2181,kafka-2:2181,kafka-3:2181|
-|Kafka Brokers|kafka-1:9092,kafka-2:9092,kafka-3:9092|
+|Kafka Brokers|kafka-1:9093,kafka-2:9093,kafka-3:9093|
 |Kibana|[http://mon-1:5601](http://mon-1:5601)|
 |Elasticsearch|[http://mon-1:9200](http://mon-1:9200)|
 |Grafana|[http://mon-2:3000](http://mon-2:3000)|
@@ -104,7 +104,7 @@ WatchedEvent state:SyncConnected type:None path:null
 lucky:~ markus$ vagrant ssh kafka-1
 [vagrant@kafka-1 ~]$ kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 2 --partitions 6 --topic sample
 Created topic "sample".
-[vagrant@kafka-1 ~]$ kafka-topics.sh --zookeeper kafka-1 --topic sample --describe
+[vagrant@kafka-1 ~]$ kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
 Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 	Topic: sample	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
 	Topic: sample	Partition: 1	Leader: 2	Replicas: 2,3	Isr: 2,3
@@ -117,21 +117,21 @@ Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 ### Producer
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-console-producer.sh --broker-list kafka-1:9092,kafka-3:9092 --topic sample
-[2017-04-22 15:27:41,035] WARN Removing server kafka-1::9092 from bootstrap.servers as DNS resolution failed for kafka-1: (org.apache.kafka.clients.ClientUtils)
+[vagrant@kafka-1 ~]$ kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample
+[2017-04-22 15:27:41,035] WARN Removing server kafka-1::9093 from bootstrap.servers as DNS resolution failed for kafka-1: (org.apache.kafka.clients.ClientUtils)
 Hey, is Kafka up and running?
 ```
 
 ### Consumer
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-console-consumer.sh --bootstrap-server kafka-1:9092,kafka-3:9092 --topic sample --from-beginning
+[vagrant@kafka-1 ~]$ kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample --from-beginning
 Hey, is Kafka up and running?
 ```
 
 ### Producer Perf Test
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-producer-perf-test.sh --producer-props bootstrap.servers="kafka-1:9092,kafka-2:9092,kafka-3:9092" --topic sample --num-records 2000 --throughput 100 --record-size 256
+[vagrant@kafka-1 ~]$ kafka-producer-perf-test.sh --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --producer-props bootstrap.servers="kafka-1:9093,kafka-2:9093,kafka-3:9093" --topic sample --num-records 2000 --throughput 100 --record-size 256
 
 ```

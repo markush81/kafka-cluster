@@ -82,9 +82,15 @@
     daemon_reload: yes
   when: kafka_config.changed or kafka_config_jmx.changed or kafka_config_prometheus.changed or kafka_service.changed or kafka_env.changed
 
-- name: create sample topic
+- name: wait until kafka has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 9093
+    delay: 10
+
+- name: create {{ exchange }}/client-ssl.properties
   become: yes
-  command: "{{ kafka_home }}/bin/kafka-topics.sh --create --zookeeper {{ groups['zookeeper'][0] }}:2181 --replication-factor 2 --partitions 6 --topic sample"
+  template:
+    src: templates/client-ssl.properties.j2
+    dest: "{{ ssl_client_dir }}/client-ssl.properties"
   run_once: true
-  ignore_errors: true
-  when: kafka_install.changed

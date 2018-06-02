@@ -6,16 +6,30 @@
     <query objectName="java.lang:type=GarbageCollector,name=*" attributes="CollectionTime,CollectionCount" resultAlias="jvm.%name%.#attribute#"/>
     <query objectName="java.lang:type=ClassLoading" attribute="LoadedClassCount" resultAlias="jvm.#attribute#"/>
     <query objectName="java.lang:type=Threading" attribute="ThreadCount" resultAlias="jvm.#attribute#"/>
+
     <!-- Kafka -->
-    <query objectName="kafka.controller:type=KafkaController,name=*" attribute="Value" resultAlias="%name%"/>
-    <query objectName="kafka.server:type=ReplicaManager,name=*" attribute="Value" resultAlias="%name%"/>
+    <query objectName="kafka.controller:type=KafkaController,name=*" attribute="Value" resultAlias="KafkaController.%name%.#attribute#"/>
+
+    <query objectName="kafka.server:type=ReplicaManager,name=FailedIsrUpdatesPerSec" attribute="Count" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=IsrExpandsPerSec" attribute="Count" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=IsrShrinksPerSec" attribute="Count" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=PartitionCount" attribute="Value" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=UnderMinIsrPartitionCount" attribute="Value" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions" attribute="Value" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=LeaderCount" attribute="Value" resultAlias="ReplicaManager.%name%.#attribute#"/>
+    <query objectName="kafka.server:type=ReplicaManager,name=OfflineReplicaCount" attribute="Value" resultAlias="ReplicaManager.%name%.#attribute#"/>
 
     <query objectName="kafka.server:type=BrokerTopicMetrics,name=*,topic=*" attributes="OneMinuteRate,Count,MeanRate" resultAlias="BrokerTopicMetrics.%name%.%topic%.#attribute#"/>
+
     <query objectName="kafka.server:type=FetcherLagMetrics,name=ConsumerLag,clientId=*,topic=*,partition=*" attribute="Value" resultAlias="FetcherLagMetrics.%name%.%clientId%.%topic%.%partition%"/>
 
-    <query objectName="kafka.network:type=RequestMetrics,name=*,request=Produce" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=*,request=FetchConsumer" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=*,request=FetchFollower" attribute="MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=Produce" attributes="Count,Max,99thPercentile" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchConsumer" attributes="Count,Max,99thPercentile" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchFollower" attributes="Count,Max,99thPercentile" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+
+    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=Produce" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchConsumer" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchFollower" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
   </queries>
   <outputWriter class="org.jmxtrans.agent.GraphitePlainTextTcpOutputWriter">
     <host>{{ groups['grafana'][0] }}</host>

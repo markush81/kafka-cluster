@@ -34,12 +34,12 @@ auto.create.topics.enable=false
 #     listeners = listener_name://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://0.0.0.0:9092
+listeners=SSL://0.0.0.0:9093
 
 # Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
-advertised.listeners=PLAINTEXT://{{ inventory_hostname }}:9092
+advertised.listeners=SSL://{{ inventory_hostname }}:9093
 
 # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
 #listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
@@ -111,6 +111,20 @@ log.segment.bytes=1073741824
 # The interval at which log segments are checked to see if they can be deleted according
 # to the retention policies
 log.retention.check.interval.ms=300000
+
+############################# Authentication and SSL ###########################
+
+ssl.truststore.location=/usr/local/server.truststore.jks
+ssl.truststore.password={{ truststore_pwd }}
+ssl.keystore.location=/usr/local/server.keystore.jks
+ssl.keystore.password={{ keystore_pwd }}
+ssl.key.password={{ key_pwd }}
+
+security.inter.broker.protocol=SSL
+
+ssl.endpoint.identification.algorithm=HTTPS
+ssl.client.auth=required
+ssl.enabled.protocols=TLSv1.2
 
 ############################# Zookeeper #############################
 

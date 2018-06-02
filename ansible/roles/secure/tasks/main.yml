@@ -1,0 +1,76 @@
+---
+- name: generate client folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ ssl_client_dir }}"
+    - "{{ ssl_ca_dir }}"
+
+- name: generate keystores
+  become: true
+  shell: "keytool -keystore {{ item.keystore }} -alias localhost -validity {{ validity }} -genkey -storepass {{ keystore_pwd }} -keypass {{ key_pwd }} -keyalg RSA -dname \"CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE\" -ext SAN=DNS:{{ inventory_hostname }}"
+  args:
+    creates: "{{ item.keystore }}"
+  with_items:
+    - { keystore: /usr/local/server.keystore.jks }
+    - { keystore: "{{ ssl_client_dir }}/client.keystore.jks" }
+
+- name: create CA
+  become: true
+  shell: "openssl req -new -x509 -keyout {{ ssl_ca_dir }}/ca-key -out {{ ssl_ca_dir }}/ca-cert -passout pass:{{ ca_pwd }} -days {{ validity }} -subj \"/C=DE/ST=Bavaria/L=home/O=org/OU=org/CN=kafka\""
+  args:
+    creates: "{{ ssl_ca_dir }}/ca-cert"
+    #creates: "{{ ssl_ca_dir }}/ca-key"
+  run_once: true
+
+- name: import CA into truststores
+  become: true
+  java_cert:
+    cert_path: "{{ ssl_ca_dir }}/ca-cert"
+    cert_alias: CARoot
+    keystore_path: "{{ item }}"
+    keystore_pass: "{{ truststore_pwd }}"
+    keystore_create: true
+    state: present
+  with_items:
+   - "/usr/local/server.truststore.jks"
+   - "{{ ssl_client_dir }}/client.truststore.jks"
+
+- name: create CSR
+  become: true
+  shell: "keytool -keystore {{ item.keystore }} -alias localhost -certreq -file {{ item.cert_csr }} -storepass {{ keystore_pwd }} -keypass {{ key_pwd }} -ext SAN=DNS:{{ inventory_hostname }}"
+  args:
+    creates: "{{ item.cert_csr }}"
+  with_items:
+    - { keystore: "/usr/local/server.keystore.jks", cert_csr: "/tmp/cert-csr" }
+    - { keystore: "{{ ssl_client_dir }}/client.keystore.jks", cert_csr: "{{ ssl_client_dir }}/cert-csr" }
+
+- name: create SAN conf for signing
+  lineinfile:
+    create: yes
+    path: /tmp/san.conf
+    line: 'subjectAltName=DNS:{{ inventory_hostname }}'
+    state: present
+
+- name: sign certificates
+  become: true
+  shell: "openssl x509 -req -CAkey {{ ssl_ca_dir }}/ca-key -CA {{ ssl_ca_dir }}/ca-cert -days {{ validity }} -CAcreateserial -in {{ item.cert_csr }} -passin pass:{{ ca_pwd }} -out {{ item.cert_file_signed }} -extfile /tmp/san.conf"
+  args:
+    creates: "{{ item.cert_file_signed }}"
+  with_items:
+    - { cert_csr: /tmp/cert-csr, cert_file_signed: /tmp/cert-signed}
+    - { cert_csr: "{{ ssl_client_dir }}/cert-csr" , cert_file_signed: "{{ ssl_client_dir }}/cert-signed" }
+  register: signed
+
+- name: import signed certificates into keystores
+  become: true
+  shell: "keytool -keystore {{ item.keystore }} -alias {{ item.alias }} -import -file {{ item.path }} -noprompt -storepass {{ keystore_pwd }} -keypass {{ key_pwd }}"
+  with_items:
+   - { alias: CARoot, path: "{{ ssl_ca_dir }}/ca-cert", keystore: "/usr/local/server.keystore.jks" }
+   - { alias: localhost, path: "/tmp/cert-signed", keystore:  "/usr/local/server.keystore.jks" }
+   - { alias: CARoot, path: "{{ ssl_ca_dir }}/ca-cert", keystore: "{{ ssl_client_dir }}/client.keystore.jks" }
+   - { alias: localhost, path: "{{ ssl_client_dir }}/cert-signed", keystore:  "{{ ssl_client_dir }}/client.keystore.jks" }
+  when: signed.changed
+  ignore_errors: true #client store already done with first host

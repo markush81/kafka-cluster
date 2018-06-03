@@ -3,10 +3,7 @@ Description=Zookeeper Service
 After=network-online.target
 
 [Service]
-Environment=JAVA_HOME=/usr/java/latest
-Environment=ZOO_LOG_DIR={{ zookeeper_log_dir }}
-Environment=JVMFLAGS=-javaagent:{{ jmxtrans_dest }}/jmxtrans-agent.jar={{ jmxtrans_dest }}/{{ jmxagent }}
-Environment=JMXPORT=5556
+EnvironmentFile={{ zookeeper_home }}/zookeeper.environment
 Type=forking
 User=vagrant
 ExecStart={{ zookeeper_home }}/bin/zkServer.sh start

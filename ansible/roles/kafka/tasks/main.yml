@@ -47,6 +47,14 @@
     dest: "{{ kafka_home }}/kafka.environment"
   register: kafka_env
 
+
+- name: copy zookeeper_jaas.conf {{ kafka_home }}/config/zookeeper_jaas.conf
+  become: yes
+  template:
+    src: templates/zookeeper_jaas.conf.j2
+    dest: "{{ kafka_home }}/config/zookeeper_jaas.conf"
+  register: zookeeper_jaas
+
 - name: copy jmxtrans-agent.xml {{ jmxtrans_dest }}/{{ jmxagent }}
   become: yes
   template:
@@ -80,7 +88,7 @@
     state: restarted
     name: kafka
     daemon_reload: yes
-  when: kafka_config.changed or kafka_config_jmx.changed or kafka_config_prometheus.changed or kafka_service.changed or kafka_env.changed
+  when: kafka_config.changed or kafka_config_jmx.changed or kafka_config_prometheus.changed or kafka_service.changed or kafka_env.changed or zookeeper_jaas.changed
 
 - name: wait until kafka has started
   wait_for:

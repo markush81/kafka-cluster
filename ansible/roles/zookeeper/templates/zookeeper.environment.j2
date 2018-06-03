@@ -1,0 +1,4 @@
+JAVA_HOME=/usr/java/latest
+ZOO_LOG_DIR={{ zookeeper_log_dir }}
+JVMFLAGS=-Djava.security.auth.login.config={{ zookeeper_home }}/conf/jaas.conf -javaagent:{{ jmxtrans_dest }}/jmxtrans-agent.jar={{ jmxtrans_dest }}/{{ jmxagent }}
+JMXPORT=5556

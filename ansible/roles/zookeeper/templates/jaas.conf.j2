@@ -1,11 +1,14 @@
 Server {
        org.apache.zookeeper.server.auth.DigestLoginModule required
+       username="admin"
+       password="admin-secret"
        user_admin="admin-secret";
 };
 
 QuorumLearner {
        org.apache.zookeeper.server.auth.DigestLoginModule required
-       user_admin="admin-secret";
+       username="admin"
+       password="admin-secret";
 };
 
 QuorumServer {

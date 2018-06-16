@@ -2,7 +2,7 @@
 
 ## Content
 
-In case you need a local cluster providing Kafka including a monitoring suite.
+In case you need a local cluster providing Kafka (**with SSL and ACL**) including a monitoring suite.
 
 * [Apache Kafka 1.1.0](http://kafka.apache.org/11/documentation.html)
 * [Elastic Search 6.2.4](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/index.html)
@@ -75,8 +75,6 @@ The result if everything wents fine should be
 
 ![Kafka Overview](doc/kafka_overview.png)
 
-:warning: still in progess to add more!
-
 # Usage
 
 ## Zookeeper
@@ -98,13 +96,27 @@ WatchedEvent state:SyncConnected type:None path:null
 
 ## Kafka
 
+### ACL for cluster operations
+
+```bash
+lucky:~ markus$ vagrant ssh kafka-1
+
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+```
+
 ### Topic Creation
 
 ```bash
 lucky:~ markus$ vagrant ssh kafka-1
-[vagrant@kafka-1 ~]$ kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 2 --partitions 6 --topic sample
+
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 2 --partitions 6 --topic sample
 Created topic "sample".
-[vagrant@kafka-1 ~]$ kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
+
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
 Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 	Topic: sample	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
 	Topic: sample	Partition: 1	Leader: 2	Replicas: 2,3	Isr: 2,3
@@ -114,18 +126,28 @@ Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 	Topic: sample	Partition: 5	Leader: 3	Replicas: 3,2	Isr: 3,2
 [vagrant@kafka-1 ~]$
 ```
+
+### ACL for producers and consumers
+
+```bash
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE --group console
+
+[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-1.1.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
+```
+
 ### Producer
 
 ```bash
 [vagrant@kafka-1 ~]$ kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample
-[2017-04-22 15:27:41,035] WARN Removing server kafka-1::9093 from bootstrap.servers as DNS resolution failed for kafka-1: (org.apache.kafka.clients.ClientUtils)
 Hey, is Kafka up and running?
 ```
 
 ### Consumer
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample --from-beginning
+[vagrant@kafka-1 ~]$ kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console --topic sample --from-beginning
 Hey, is Kafka up and running?
 ```
 

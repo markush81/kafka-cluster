@@ -37,6 +37,12 @@
     dest: "{{ zookeeper_home }}/conf/zoo.cfg"
   register: zoo_config
 
+- name: copy jaas.conf to {{ zookeeper_home }}/conf/jaas.conf
+  template:
+    src: templates/jaas.conf.j2
+    dest: "{{ zookeeper_home }}/conf/jaas.conf"
+  register: jaas_conf
+
 - name: create {{ zookeeper_data_dir }}
   file:
     path: "{{ zookeeper_data_dir }}"
@@ -60,6 +66,13 @@
     dest: "{{ jmxtrans_dest }}/{{ jmxagent }}"
   register: zoo_config_jmx
 
+- name: copy zookeeper.environment {{ zookeeper_home }}/zookeeper.environment
+  become: yes
+  template:
+    src: templates/zookeeper.environment.j2
+    dest: "{{ zookeeper_home }}/zookeeper.environment"
+  register: zookeeper_env
+
 - name: install zookeeper systemd unit file
   become: yes
   template:
@@ -74,4 +87,10 @@
     state: restarted
     name: zookeeper
     daemon_reload: yes
-  when: zoo_service.changed or zoo_config.changed or zoo_config_jmx.changed
+  when: zoo_service.changed or zoo_config.changed or zoo_config_jmx.changed or zookeeper_env.changed or jaas_conf.changed
+
+- name: wait until zookeeper has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 2181
+    delay: 10

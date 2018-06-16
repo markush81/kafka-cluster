@@ -126,6 +126,12 @@ ssl.endpoint.identification.algorithm=HTTPS
 ssl.client.auth=required
 ssl.enabled.protocols=TLSv1.2
 
+zookeeper.set.acl=true
+
+authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+allow.everyone.if.no.acl.found=false
+#super.users=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+
 ############################# Zookeeper #############################
 
 # Zookeeper connection string (see zookeeper docs for details).

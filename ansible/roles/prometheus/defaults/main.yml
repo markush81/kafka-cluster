@@ -1,4 +1,4 @@
 ---
-prometheus: prometheus-2.2.1.linux-amd64
+prometheus: prometheus-2.3.2.linux-amd64
 file: "{{ prometheus }}.tar.gz"
-url: https://github.com/prometheus/prometheus/releases/download/v2.2.1/{{ file }}
+url: https://github.com/prometheus/prometheus/releases/download/v2.3.2/{{ file }}

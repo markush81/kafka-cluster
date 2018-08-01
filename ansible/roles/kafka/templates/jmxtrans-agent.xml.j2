@@ -27,9 +27,9 @@
     <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchConsumer" attributes="Count,Max,99thPercentile" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
     <query objectName="kafka.network:type=RequestMetrics,name=TotalTimeMs,request=FetchFollower" attributes="Count,Max,99thPercentile" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
 
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=Produce" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchConsumer" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
-    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchFollower" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=Produce,version=*" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchConsumer,version=*" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
+    <query objectName="kafka.network:type=RequestMetrics,name=RequestsPerSec,request=FetchFollower,version=*" attributes="Count,MeanRate" resultAlias="RequestMetrics.%name%.%request%.#attribute#"/>
   </queries>
   <outputWriter class="org.jmxtrans.agent.GraphitePlainTextTcpOutputWriter">
     <host>{{ groups['grafana'][0] }}</host>

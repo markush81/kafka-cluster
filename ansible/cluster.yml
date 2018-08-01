@@ -2,7 +2,7 @@
   remote_user: vagrant
   serial: 100%
   roles:
-  - java
+  - java8
 
 - hosts: zookeeper
   remote_user: vagrant

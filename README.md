@@ -81,7 +81,7 @@ The result if everything wents fine should be
 
 ```bash
 lucky:~ markus$ vagrant ssh kafka-1
-[vagrant@kafka-1 ~]$ zkCli.sh -server kafka-1:2181/
+zkCli.sh -server kafka-1:2181/
 Connecting to kafka-1:2181/
 ...
 
@@ -101,7 +101,7 @@ WatchedEvent state:SyncConnected type:None path:null
 ```bash
 lucky:~ markus$ vagrant ssh kafka-1
 
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 ```
 
 ### Topic Creation
@@ -109,13 +109,13 @@ lucky:~ markus$ vagrant ssh kafka-1
 ```bash
 lucky:~ markus$ vagrant ssh kafka-1
 
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 2 --partitions 6 --topic sample
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 1 --partitions 4 --topic sample
 Created topic "sample".
 
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
 Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 	Topic: sample	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
 	Topic: sample	Partition: 1	Leader: 2	Replicas: 2,3	Isr: 2,3
@@ -129,30 +129,43 @@ Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 ### ACL for producers and consumers
 
 ```bash
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE --group console
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE --group console
 
-[vagrant@kafka-1 ~]$ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
+Current ACLs for resource `Cluster:LITERAL:kafka-cluster`:
+ 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: ClusterAction from hosts: *
+	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Create from hosts: *
+	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Describe from hosts: *
+
+Current ACLs for resource `Group:LITERAL:console`:
+ 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Read from hosts: *
+
+Current ACLs for resource `Topic:LITERAL:sample`:
+ 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Create from hosts: *
+	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Describe from hosts: *
+	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Write from hosts: *
+	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Read from hosts: *
 ```
 
 ### Producer
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample
+kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample
 Hey, is Kafka up and running?
 ```
 
 ### Consumer
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console --topic sample --from-beginning
+kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console --topic sample --from-beginning
 Hey, is Kafka up and running?
 ```
 
 ### Producer Perf Test
 
 ```bash
-[vagrant@kafka-1 ~]$ kafka-producer-perf-test.sh --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --producer-props bootstrap.servers="kafka-1:9093,kafka-2:9093,kafka-3:9093" --topic sample --num-records 2000 --throughput 100 --record-size 256
+kafka-producer-perf-test.sh --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --producer-props bootstrap.servers="kafka-1:9093,kafka-2:9093,kafka-3:9093" --topic sample --num-records 2000 --throughput 100 --record-size 256
 
 ```

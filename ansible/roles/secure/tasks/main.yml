@@ -74,3 +74,15 @@
    - { alias: localhost, path: "{{ ssl_client_dir }}/cert-signed", keystore:  "{{ ssl_client_dir }}/client.keystore.jks" }
   when: signed.changed
   ignore_errors: true #client store already done with first host
+
+- name: export client private key
+  become: true
+  shell: "keytool -v -importkeystore -srckeystore {{ ssl_client_dir }}/client.keystore.jks -srcalias localhost -destkeystore {{ ssl_client_dir }}/localhost.p12 -deststoretype PKCS12 -srcstorepass {{ keystore_pwd }} -deststorepass {{ keystore_pwd }} -srckeypass {{ key_pwd }} -destkeypass {{ key_pwd }}"
+  args:
+    creates: "{{ ssl_client_dir }}/localhost.p12"
+
+- name: transform client private key
+  become: true
+  shell: "openssl pkcs12 -in {{ ssl_client_dir }}/localhost.p12 -nocerts -nodes -passin pass:{{ keystore_pwd }} -out {{ ssl_client_dir }}/client-key"
+  args:
+    creates: "{{ ssl_client_dir }}/client-key"

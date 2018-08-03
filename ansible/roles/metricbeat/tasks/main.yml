@@ -19,13 +19,24 @@
     dest: /etc/metricbeat/metricbeat.yml
   register: metricbeat_config
 
-- name: copy metricbeat modules /etc/metricbeat/modules.d
+- name: copy metricbeat modules /etc/metricbeat/modules.d (all)
   become: yes
   template:
     src: templates/{{ item }}.yml.j2
     dest: /etc/metricbeat/modules.d/{{ item }}.yml
   with_items:
     - system
+  register: metricbeat_modules
+
+- name: copy metricbeat modules /etc/metricbeat/modules.d (kafka-*)
+  become: yes
+  template:
+    src: templates/{{ item }}.yml.j2
+    dest: /etc/metricbeat/modules.d/{{ item }}.yml
+  with_items:
+    - kafka
+    - zookeeper
+  when: inventory_hostname is match("kafka-*")
   register: metricbeat_modules
 
 - name: restart {{ role_path|basename }}
@@ -41,10 +52,10 @@
   become: yes
   run_once: true
   command: metricbeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]'
-  when: (metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed) and groups['elk'][0] == inventory_hostname
+  when: groups['elk'][0] == inventory_hostname
 
 - name: setup metricbeat dashboards
   become: yes
   run_once: true
   command: metricbeat setup --dashboards -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]'
-  when: (metricbeat_install.changed or metricbeat_config.changed or metricbeat_modules.changed) and groups['elk'][0] == inventory_hostname
+  when: groups['elk'][0] == inventory_hostname

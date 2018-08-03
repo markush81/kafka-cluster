@@ -2,5 +2,4 @@
   metricsets:
     - "mntr"
   period: 10s
-  hosts:
-    - "{{ inventory_hostname }}:2181"
+  hosts: ["{{ inventory_hostname }}:2181"]

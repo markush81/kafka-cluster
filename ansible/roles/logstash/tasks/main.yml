@@ -12,6 +12,15 @@
     state: present
   register: logstash_install
 
+- name: copy logstash pipelines /etc/logstash/conf.d
+  become: yes
+  template:
+    src: templates/{{ item }}.conf.j2
+    dest: /etc/logstash/conf.d/{{ item }}.conf
+  with_items:
+    - kafka
+  register: logstash_pipelines
+
 - name: restart {{ role_path|basename }}
   become: yes
   systemd:
@@ -19,4 +28,9 @@
     state: restarted
     name: logstash
     daemon_reload: yes
-  when: logstash_install.changed
+  when: logstash_install.changed or logstash_pipelines.changed
+
+- name: wait until logstash http input has been started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 9000

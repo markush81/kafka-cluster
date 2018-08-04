@@ -18,6 +18,12 @@
     - kafka
     - metricbeat
 
+- hosts: kafka-3
+  remote_user: vagrant
+  serial: 100%
+  roles:
+    - burrow
+
 - hosts: elk
   remote_user: vagrant
   serial: 100%
@@ -34,7 +40,6 @@
   - graphite
   - grafana
   - metricbeat
-
 
 - hosts: prometheus
   remote_user: vagrant

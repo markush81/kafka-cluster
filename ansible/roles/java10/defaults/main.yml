@@ -1,0 +1,6 @@
+---
+jdk: "{{ java }}"
+file: "jdk-10.0.2_linux-x64_bin.rpm"
+url: http://download.oracle.com/otn-pub/java/jdk/10.0.2+13/19aef61b38124481863b1413dce1855f/{{ file }}
+jmx_trans: https://github.com/jmxtrans/jmxtrans-agent/releases/download/jmxtrans-agent-1.2.6/jmxtrans-agent-1.2.6.jar
+prometheus_jmx: http://search.maven.org/remotecontent?filepath=io/prometheus/jmx/jmx_prometheus_javaagent/0.10/jmx_prometheus_javaagent-0.10.jar

@@ -93,4 +93,3 @@
   wait_for:
     host: "{{ inventory_hostname }}"
     port: 2181
-    delay: 10

@@ -27,3 +27,8 @@
     name: kibana
     daemon_reload: yes
   when: kibana_install.changed or kibana_yml.changed
+
+- name: wait until kibana has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 5601

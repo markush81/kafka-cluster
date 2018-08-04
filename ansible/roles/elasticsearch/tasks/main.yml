@@ -27,3 +27,8 @@
     name: elasticsearch
     daemon_reload: yes
   when: elasticsearch_config.changed or elasticsearch_install.changed
+
+- name: wait until elasticsearch has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 9200

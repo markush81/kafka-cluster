@@ -1,0 +1,55 @@
+---
+- name: download {{ url }}
+  run_once: true
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ download }}/{{ file }}"
+
+- name: create directory /usr/local/Burrow_{{ version }}
+  become: yes
+  file:
+    path: /usr/local/Burrow_{{ version }}
+    state: directory
+    owner: vagrant
+    group: vagrant
+    recurse: yes
+    mode: 0755
+
+- name: extract {{ download }}/{{ file }} to /usr/local/Burrow_{{ version }}
+  unarchive:
+    src: "{{ download }}/{{ file }}"
+    dest: /usr/local/Burrow_{{ version }}
+    remote_src: true
+
+- name: copy burrow template configuration
+  template:
+    src: templates/{{ item }}.j2
+    dest: /usr/local/Burrow_{{ version }}/config/{{ item }}
+  with_items:
+    - burrow.toml
+
+- name: copy burrow configuration
+  copy:
+    remote_src: false
+    src: templates/{{ item }}
+    dest: /usr/local/Burrow_{{ version }}/config/{{ item }}
+  with_items:
+    - burrow-request.tmpl
+
+- name: allow burrow to connect to kafka
+  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf /usr/local/kafka/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic __consumer_offsets --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group burrow"
+  run_once: true
+
+- name: install burrow systemd unit file
+  become: yes
+  template:
+    src: templates/burrow.service.j2
+    dest: "{{ system_units }}/burrow.service"
+
+- name: restart burrow
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: burrow
+    daemon_reload: yes

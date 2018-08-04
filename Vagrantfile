@@ -97,17 +97,7 @@ Vagrant.configure("2") do |config|
 
         kafka.vm.provision :ansible do |ansible|
           ansible.compatibility_mode = "2.0"
-          ansible.limit = "zookeeper"
-          ansible.playbook = "ansible/cluster.yml"
-          ansible.inventory_path = "ansible/inventories/vbox"
-          ansible.raw_arguments  = [
-            "-vv"
-          ]
-        end
-
-        kafka.vm.provision :ansible do |ansible|
-          ansible.compatibility_mode = "2.0"
-          ansible.limit = "kafka"
+          ansible.limit = "zookeeper,kafka"
           ansible.playbook = "ansible/cluster.yml"
           ansible.inventory_path = "ansible/inventories/vbox"
           ansible.raw_arguments  = [

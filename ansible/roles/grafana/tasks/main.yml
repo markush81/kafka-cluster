@@ -72,6 +72,7 @@
     - system_mon
     - kafka_graphite
     - kafka_prometheus
+    - kafka_topics
   register: grafana_dashbaords_items
 
 - name: restart grafana-server

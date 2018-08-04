@@ -12,6 +12,7 @@ In case you need a local cluster providing Kafka (**with SSL and ACL**) includin
 * [Graphite](https://graphiteapp.org)
 * [Prometheus 2.2.1](https://prometheus.io)
 * [Jmxtrans Agent 1.2.6](https://github.com/jmxtrans/jmxtrans-agent/)
+* [Burrow 1.1.0](https://github.com/linkedin/Burrow)
 
 ## Prerequisites
 
@@ -62,6 +63,7 @@ The result if everything wents fine should be
 |Grafana|[http://mon-2:3000](http://mon-2:3000)|
 |Graphite|[http://mon-2](http://mon-2)|
 |Prometheus (graph)|[http://mon-3:9090/graph](http://mon-3:9090/graph)|
+|Burrow|[http://kafka-3:8000/burrow/admin](http://kafka-3:8000/burrow/admin)|
 
 
 # Monitoring
@@ -131,10 +133,10 @@ Topic:sample	PartitionCount:6	ReplicationFactor:2	Configs:
 ```bash
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE --group console
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group console --resource-pattern-type PREFIXED
 
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka_2.12-2.0.0/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
-Current ACLs for resource `Cluster:LITERAL:kafka-cluster`:
+Current ACLs for resource `Cluster:PREFIXED:kafka-cluster`:
  	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: ClusterAction from hosts: *
 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Create from hosts: *
 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Describe from hosts: *
@@ -159,7 +161,7 @@ Hey, is Kafka up and running?
 ### Consumer
 
 ```bash
-kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console --topic sample --from-beginning
+kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console-1 --topic sample --from-beginning
 Hey, is Kafka up and running?
 ```
 

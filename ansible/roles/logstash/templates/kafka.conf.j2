@@ -1,0 +1,19 @@
+input {
+  http {
+    id => "logstash-http"
+    port => "9000"
+  }
+}
+filter {
+  json {
+    source => "message"
+  }
+}
+output {
+  stdout { codec => rubydebug }
+  elasticsearch {
+    hosts => localhost
+    manage_template => false
+    index => "burrow-%{+YYYY.MM.dd}"
+  }
+}

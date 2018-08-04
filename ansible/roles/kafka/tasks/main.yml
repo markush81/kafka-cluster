@@ -7,13 +7,19 @@
 
 - name: extract {{ download }}/{{ file }}
   become: yes
-
   unarchive:
     src: "{{ download }}/{{ file }}"
     dest: "{{ usr_local }}"
     copy: no
     creates: "{{ kafka_home }}"
   register: kafka_install
+
+- name: link to /usr/local/kafka
+  become: yes
+  file:
+    src:  "{{ kafka_home }}"
+    dest: /usr/local/kafka
+    state: link
 
 - name: set ownership on {{ kafka_home }}
   become: yes
@@ -94,7 +100,6 @@
   wait_for:
     host: "{{ inventory_hostname }}"
     port: 9093
-    delay: 10
 
 - name: create {{ exchange }}/client-ssl.properties
   become: yes

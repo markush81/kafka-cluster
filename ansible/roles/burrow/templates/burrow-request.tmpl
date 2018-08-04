@@ -1,0 +1,10 @@
+{
+  "message": {
+    "cluster":"{{.Result.Cluster}}",
+    "group":"{{.Result.Group}}",
+    "status":"{{.Result.Status.String}}",
+    "complete":"{{.Result.Complete}}",
+    "timestamp":"{{.Start.Format "2006-02-02 15:04:05"}}",
+    "events":{{.Result.Partitions | jsonencoder}}
+  }
+}

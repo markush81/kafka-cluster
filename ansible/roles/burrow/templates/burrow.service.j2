@@ -1,0 +1,14 @@
+[Unit]
+Description=Burrow Service
+After=network-online.target
+
+[Service]
+Type=simple
+User=vagrant
+WorkingDirectory=/usr/local/Burrow_{{ version }}
+ExecStart=/usr/local/Burrow_{{ version }}/burrow --config-dir config
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

@@ -51,17 +51,17 @@ group-blacklist="^not-this-group$"
 [httpserver.default]
 address=":8000"
 
-[notifier.default]
-class-name="http"
-url-open="http://{{ groups['elk'][0] }}:9000"
-url-close="http://{{ groups['elk'][0] }}:9000"
-interval=60
-timeout=5
-keepalive=30
-template-open="config/burrow-request.tmpl"
-template-close="config/burrow-request.tmpl"
-send-close=true
-threshold=0
+#[notifier.default]
+#class-name="http"
+#url-open="http://{{ groups['elk'][0] }}:9000"
+#url-close="http://{{ groups['elk'][0] }}:9000"
+#interval=60
+#timeout=5
+#keepalive=30
+#template-open="config/burrow-request.tmpl"
+#template-close="config/burrow-request.tmpl"
+#send-close=true
+#threshold=0
 
 [storage.default]
 class-name="inmemory"

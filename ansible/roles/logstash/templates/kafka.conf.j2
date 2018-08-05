@@ -1,18 +1,15 @@
 input {
-  http {
-    id => "logstash-http"
-    port => "9000"
+  burrow {
+    client_config => {
+        url => "http://kafka-3:8000"
+    }
+    schedule => { every => "30s" }
   }
 }
-filter {
-  json {
-    source => "message"
-  }
-}
+
 output {
-  stdout { codec => rubydebug }
   elasticsearch {
-    hosts => localhost
+    hosts => {{ groups['elk'][0] }}
     manage_template => false
     index => "burrow-%{+YYYY.MM.dd}"
   }

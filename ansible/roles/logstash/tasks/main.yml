@@ -21,6 +21,18 @@
     - kafka
   register: logstash_pipelines
 
+- name: copy logstash-input-burrow
+  copy:
+    remote_src: false
+    src: files/{{ item }}
+    dest: /tmp/{{ item }}
+  with_items:
+    - logstash-input-burrow-1.0.0.gem
+
+- name: install custom logstash-input-burrow plugin
+  become: yes
+  shell: "/usr/share/logstash/bin/logstash-plugin install /tmp/logstash-input-burrow-1.0.0.gem"
+
 - name: restart {{ role_path|basename }}
   become: yes
   systemd:
@@ -29,8 +41,3 @@
     name: logstash
     daemon_reload: yes
   when: logstash_install.changed or logstash_pipelines.changed
-
-- name: wait until logstash http input has been started
-  wait_for:
-    host: "{{ inventory_hostname }}"
-    port: 9000

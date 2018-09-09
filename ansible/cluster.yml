@@ -1,8 +1,26 @@
 - hosts: all
   remote_user: vagrant
+  order: inventory
   serial: 100%
   roles:
   - java8
+
+- hosts: elk
+  remote_user: vagrant
+  serial: 100%
+  roles:
+  - elasticsearch
+  - logstash
+  - kibana
+  - diamond
+
+- hosts: grafana
+  remote_user: vagrant
+  serial: 100%
+  roles:
+  - graphite
+  - grafana
+  - diamond
 
 - hosts: zookeeper
   remote_user: vagrant
@@ -16,34 +34,10 @@
   serial: 33%
   roles:
     - kafka
-    - metricbeat
+    - diamond
 
 - hosts: kafka-3
   remote_user: vagrant
   serial: 100%
   roles:
     - burrow
-
-- hosts: elk
-  remote_user: vagrant
-  serial: 100%
-  roles:
-  - elasticsearch
-  - logstash
-  - kibana
-  - metricbeat
-
-- hosts: grafana
-  remote_user: vagrant
-  serial: 100%
-  roles:
-  - graphite
-  - grafana
-  - metricbeat
-
-- hosts: prometheus
-  remote_user: vagrant
-  serial: 100%
-  roles:
-  - metricbeat
-  - prometheus

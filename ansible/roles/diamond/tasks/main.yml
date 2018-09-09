@@ -1,0 +1,54 @@
+---
+- name: install epel repo
+  become: yes
+  yum:
+    name: "{{ item }}"
+    update_cache: true
+    state: installed
+  with_items:
+    - http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
+
+- name: install python pip and devel
+  become: yes
+  yum:
+    update_cache: yes
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - python-pip
+    - python-devel
+
+- name: install diamond
+  become: yes
+  pip:
+    name: diamond
+    version: 4.0.515
+  notify: "restart diamond"
+
+- name: create diamond directories
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /etc/diamond
+    - /var/log/diamond
+  notify: "restart diamond"
+
+- name: configure /etc/diamond/diamond.conf
+  become: yes
+  template:
+    src: templates/diamond.conf.j2
+    dest: /etc/diamond/diamond.conf
+  notify: "restart diamond"
+
+- name: install diamond systemd unit file
+  become: yes
+  template:
+    src: templates/diamond.service.j2
+    dest: "{{ system_units }}/diamond.service"
+  notify: "restart diamond"
+
+- name: run handlers
+  meta: flush_handlers

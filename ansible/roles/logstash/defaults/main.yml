@@ -1,3 +1,4 @@
 ---
-file: logstash-6.3.2.rpm
+file: logstash-6.4.0.rpm
 url: https://artifacts.elastic.co/downloads/logstash/{{ file }}
+checksum: md5:6576755dbf42002ecde4c37602076158

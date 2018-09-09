@@ -4,31 +4,21 @@
   get_url:
     url: "{{ url }}"
     dest: "{{ download }}/{{ file }}"
+    checksum: "{{ checksum }}"
 
 - name: install {{ download }}/{{ file }}
   become: yes
   yum:
     name: "{{ download }}/{{ file }}"
     state: present
-  register: elasticsearch_install
+  notify: "restart elasticsearch"
 
 - name: copy elasticsearch.yml to /etc/elasticsearch/elasticsearch.yml
   become: yes
   template:
     src: templates/elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
-  register: elasticsearch_config
+  notify: "restart elasticsearch"
 
-- name: restart {{ role_path|basename }}
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: elasticsearch
-    daemon_reload: yes
-  when: elasticsearch_config.changed or elasticsearch_install.changed
-
-- name: wait until elasticsearch has started
-  wait_for:
-    host: "{{ inventory_hostname }}"
-    port: 9200
+- name: run handlers
+  meta: flush_handlers

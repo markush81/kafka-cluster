@@ -1,0 +1,15 @@
+---
+- name: restart elasticsearch service
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: elasticsearch
+    daemon_reload: yes
+  listen: "restart elasticsearch"
+
+- name: wait until elasticsearch has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 9200
+  listen: "restart elasticsearch"

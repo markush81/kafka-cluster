@@ -12,7 +12,9 @@
     dest: "{{ usr_local }}"
     copy: no
     creates: "{{ kafka_home }}"
-  register: kafka_install
+    owner: root
+    group: root
+  notify: "restart kafka"
 
 - name: link to /usr/local/kafka
   become: yes
@@ -20,15 +22,6 @@
     src:  "{{ kafka_home }}"
     dest: /usr/local/kafka
     state: link
-
-- name: set ownership on {{ kafka_home }}
-  become: yes
-  file:
-    path: "{{ kafka_home }}"
-    owner: vagrant
-    group: vagrant
-    recurse: yes
-    mode: 0755
 
 - name: set PATH=$PATH:{{ kafka_home }}/bin
   become: yes
@@ -44,62 +37,42 @@
   template:
     src: templates/server.properties.j2
     dest: "{{ kafka_home }}/config/server.properties"
-  register: kafka_config
+  notify: "restart kafka"
 
 - name: copy kafka.environment {{ kafka_home }}/kafka.environment
   become: yes
   template:
     src: templates/kafka.environment.j2
     dest: "{{ kafka_home }}/kafka.environment"
-  register: kafka_env
-
+  notify: "restart kafka"
 
 - name: copy zookeeper_jaas.conf {{ kafka_home }}/config/zookeeper_jaas.conf
   become: yes
   template:
     src: templates/zookeeper_jaas.conf.j2
     dest: "{{ kafka_home }}/config/zookeeper_jaas.conf"
-  register: zookeeper_jaas
+  notify: "restart kafka"
 
 - name: copy jmxtrans-agent.xml {{ jmxtrans_dest }}/{{ jmxagent }}
   become: yes
   template:
     src: templates/jmxtrans-agent.xml.j2
     dest: "{{ jmxtrans_dest }}/{{ jmxagent }}"
-  register: kafka_config_jmx
-
-- name: copy prometheus-agent.yaml {{ prometheus_jmx_dest }}/{{ prometheusagent }}
-  become: yes
-  template:
-    src: templates/prometheus-agent.yaml.j2
-    dest: "{{ prometheus_jmx_dest }}/{{ prometheusagent }}"
-  register: kafka_config_prometheus
+  notify: "restart kafka"
 
 - name: create {{ kafka_log_dir }}
+  become: yes
   file:
     path: "{{ kafka_log_dir }}"
     state: directory
+  notify: "restart kafka"
 
 - name: install kafka systemd unit file
   become: yes
   template:
     src: templates/kafka.service.j2
     dest: "{{ system_units }}/kafka.service"
-  register: kafka_service
-
-- name: restart kafka
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: kafka
-    daemon_reload: yes
-  when: kafka_config.changed or kafka_config_jmx.changed or kafka_config_prometheus.changed or kafka_service.changed or kafka_env.changed or zookeeper_jaas.changed
-
-- name: wait until kafka has started
-  wait_for:
-    host: "{{ inventory_hostname }}"
-    port: 9093
+  notify: "restart kafka"
 
 - name: create {{ exchange }}/client-ssl.properties
   become: yes
@@ -107,3 +80,10 @@
     src: templates/client-ssl.properties.j2
     dest: "{{ ssl_client_dir }}/client-ssl.properties"
   run_once: true
+
+- name: allow cluster communication
+  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
+  run_once: true
+
+- name: run handlers
+  meta: flush_handlers

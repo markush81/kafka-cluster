@@ -1,3 +1,0 @@
----
-file: metricbeat-6.3.2-x86_64.rpm
-url: https://artifacts.elastic.co/downloads/beats/metricbeat/{{ file }}

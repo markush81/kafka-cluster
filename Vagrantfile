@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "mon-2" do |mon|
     mon.vm.hostname = "mon-2"
     mon.vm.provider "virtualbox" do |vb|
-      vb.memory = "1536"
+      vb.memory = "2048"
       vb.cpus = "1"
     end
     mon.vm.network :private_network, ip: "192.168.10.3", auto_config: true
@@ -57,23 +57,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "mon-3" do |mon|
-    mon.vm.hostname = "mon-3"
-    mon.vm.provider "virtualbox" do |vb|
-      vb.memory = "1536"
-      vb.cpus = "1"
-    end
-    mon.vm.network :private_network, ip: "192.168.10.4", auto_config: true
-
-    mon.vm.provision :ansible do |ansible|
-      ansible.compatibility_mode = "2.0"
-      ansible.limit = "prometheus"
-      ansible.playbook = "ansible/cluster.yml"
-      ansible.inventory_path = "ansible/inventories/vbox"
-      ansible.raw_arguments  = ["-vv"]
-    end
-  end
-
   (1..KAFKA).each do |i|
     config.vm.define "kafka-#{i}" do |kafka|
       kafka.vm.hostname = "kafka-#{i}"
@@ -81,7 +64,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "2048"
         vb.cpus = "1"
       end
-      kafka.vm.network :private_network, ip: "192.168.10.#{4 + i}", auto_config: true
+      kafka.vm.network :private_network, ip: "192.168.10.#{3 + i}", auto_config: true
 
       if i == KAFKA
 
@@ -97,7 +80,7 @@ Vagrant.configure("2") do |config|
 
         kafka.vm.provision :ansible do |ansible|
           ansible.compatibility_mode = "2.0"
-          ansible.limit = "zookeeper,kafka"
+          ansible.limit = "kafka"
           ansible.playbook = "ansible/cluster.yml"
           ansible.inventory_path = "ansible/inventories/vbox"
           ansible.raw_arguments  = [

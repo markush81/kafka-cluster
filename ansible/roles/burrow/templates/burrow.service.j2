@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-User=vagrant
+User=root
 WorkingDirectory=/usr/local/Burrow_{{ version }}
 ExecStart=/usr/local/Burrow_{{ version }}/burrow --config-dir config
 Restart=always

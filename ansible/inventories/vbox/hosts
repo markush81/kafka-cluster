@@ -1,3 +1,13 @@
+[mon]
+mon-1
+mon-2
+
+[elk]
+mon-1
+
+[grafana]
+mon-2
+
 [zookeeper]
 kafka-1
 kafka-2
@@ -7,20 +17,6 @@ kafka-3
 kafka-1
 kafka-2
 kafka-3
-
-[mon]
-mon-1
-mon-2
-mon-3
-
-[elk]
-mon-1
-
-[grafana]
-mon-2
-
-[prometheus]
-mon-3
 
 [network:children]
 mon

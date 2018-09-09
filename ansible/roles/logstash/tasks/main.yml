@@ -4,13 +4,14 @@
   get_url:
     url: "{{ url }}"
     dest: "{{ download }}/{{ file }}"
+    checksum: "{{ checksum }}"
 
 - name: install {{ download }}/{{ file }}
   become: yes
   yum:
     name: "{{ download }}/{{ file }}"
     state: present
-  register: logstash_install
+  notify: "restart logstash"
 
 - name: copy logstash pipelines /etc/logstash/conf.d
   become: yes
@@ -19,25 +20,14 @@
     dest: /etc/logstash/conf.d/{{ item }}.conf
   with_items:
     - kafka
-  register: logstash_pipelines
+  notify: "restart logstash"
 
-- name: copy logstash-input-burrow
-  copy:
-    remote_src: false
-    src: files/{{ item }}
-    dest: /tmp/{{ item }}
-  with_items:
-    - logstash-input-burrow-1.0.0.gem
-
-- name: install custom logstash-input-burrow plugin
+- name: install logstash-input-burrow plugin from rubygems.org
   become: yes
-  shell: "/usr/share/logstash/bin/logstash-plugin install /tmp/logstash-input-burrow-1.0.0.gem"
+  shell: "/usr/share/logstash/bin/logstash-plugin install logstash-input-burrow"
+  args:
+    creates: /usr/share/logstash/vendor/bundle/jruby/2.3.0/gems/logstash-input-burrow-1.0.0
+  notify: "restart logstash"
 
-- name: restart {{ role_path|basename }}
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: logstash
-    daemon_reload: yes
-  when: logstash_install.changed or logstash_pipelines.changed
+- name: run handlers
+  meta: flush_handlers

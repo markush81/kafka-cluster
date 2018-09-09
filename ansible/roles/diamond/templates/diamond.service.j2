@@ -1,0 +1,11 @@
+[Unit]
+Description=diamond - A system statistics collector for graphite
+
+[Service]
+ExecStart=/usr/bin/python /usr/bin/diamond
+Type=forking
+#If not using default pid, make sure you change PIDFile setting
+PIDFile=/var/run/diamond.pid
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+---
+
+- name: restart kafka service
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: kafka
+    daemon_reload: yes
+  listen: "restart kafka"
+
+- name: wait until kafka has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 9093
+  listen: "restart kafka"

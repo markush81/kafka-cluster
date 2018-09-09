@@ -4,4 +4,3 @@ kafka: kafka_2.12-{{ version }}
 file: "{{ kafka }}.tgz"
 url: http://mirror.dkd.de/apache/kafka/{{ version }}/{{ file }}
 jmxagent: jmxtrans-agent-kafka.xml
-prometheusagent: prometheus-agent-kafka.xml

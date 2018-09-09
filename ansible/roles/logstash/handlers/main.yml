@@ -1,0 +1,9 @@
+---
+- name: restart logstash service
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: logstash
+    daemon_reload: yes
+  listen: "restart logstash"

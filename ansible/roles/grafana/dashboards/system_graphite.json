@@ -14,355 +14,32 @@
   },
   "editable": true,
   "gnetId": null,
-  "graphTooltip": 1,
-  "iteration": 1536494387490,
+  "graphTooltip": 0,
+  "id": 2,
+  "iteration": 1536610282995,
   "links": [],
   "panels": [
     {
-      "collapsed": false,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "decimals": 2,
+      "fill": 1,
       "gridPos": {
-        "h": 1,
-        "w": 24,
+        "h": 8,
+        "w": 4.8,
         "x": 0,
         "y": 0
       },
-      "id": 24,
-      "panels": [],
-      "title": "Kafka",
-      "type": "row"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
-      "datasource": "Graphite",
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 0,
-        "y": 1
-      },
-      "id": 32,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "refId": "A",
-          "target": "sumSeries(servers.*.kafka.KafkaController.ActiveControllerCount.Value)"
-        }
-      ],
-      "thresholds": "0.01,1",
-      "title": "ActiveControllerCount",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "Graphite",
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 6,
-        "y": 1
-      },
-      "id": 34,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "refId": "A",
-          "target": "sumSeries(servers.*.kafka.KafkaController.OfflinePartitionsCount.Value)"
-        }
-      ],
-      "thresholds": "0.01,0.01",
-      "title": "OfflinePartitionsCount",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "Graphite",
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 12,
-        "y": 1
-      },
-      "id": 36,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "refId": "A",
-          "target": "sumSeries(servers.*.kafka.ReplicaManager.UnderReplicatedPartitions.Value, *)"
-        }
-      ],
-      "thresholds": "0.01,0.01",
-      "title": "UnderReplicatedPartitions",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "Graphite",
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 1
-      },
-      "id": 38,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "refId": "A",
-          "target": "sumSeries(servers.*.kafka.ReplicaManager.UnderMinIsrPartitionCount.Value)"
-        }
-      ],
-      "thresholds": "0.01,0.01",
-      "title": "UnderMinIsrPartitionCount",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 6
-      },
-      "id": 46,
+      "id": 50,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -370,6 +47,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -392,18 +70,23 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.01_normalized, 3)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.05_normalized, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "C",
+          "target": "aliasByNode(servers.$hostname.loadavg.15_normalized, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Bytes In/Out - $hostname",
+      "title": "Load - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -419,12 +102,12 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "Bps",
+          "decimals": 2,
+          "format": "percentunit",
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -447,20 +130,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 6,
-        "y": 6
+        "h": 8,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 0
       },
-      "id": 69,
+      "id": 51,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -468,6 +152,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -475,8 +160,8 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 46,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 50,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -492,18 +177,23 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.01_normalized, 3)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.05_normalized, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "C",
+          "target": "aliasByNode(servers.$hostname.loadavg.15_normalized, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Bytes In/Out - $hostname",
+      "title": "Load - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -519,12 +209,12 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "Bps",
+          "decimals": 2,
+          "format": "percentunit",
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -547,20 +237,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 12,
-        "y": 6
+        "h": 8,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 0
       },
-      "id": 70,
+      "id": 52,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -568,6 +259,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -575,8 +267,8 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 46,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 50,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -592,18 +284,23 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.01_normalized, 3)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.05_normalized, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "C",
+          "target": "aliasByNode(servers.$hostname.loadavg.15_normalized, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Bytes In/Out - $hostname",
+      "title": "Load - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -619,12 +316,12 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "Bps",
+          "decimals": 2,
+          "format": "percentunit",
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -647,20 +344,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 18,
-        "y": 6
+        "h": 8,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 0
       },
-      "id": 71,
+      "id": 53,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -668,6 +366,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -675,8 +374,8 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 46,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 50,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -692,18 +391,23 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.01_normalized, 3)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.05_normalized, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "C",
+          "target": "aliasByNode(servers.$hostname.loadavg.15_normalized, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Bytes In/Out - $hostname",
+      "title": "Load - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -719,12 +423,12 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "Bps",
+          "decimals": 2,
+          "format": "percentunit",
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -747,20 +451,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 13
+        "h": 8,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 0
       },
-      "id": 72,
+      "id": 54,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -768,6 +473,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -775,8 +481,8 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 46,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 50,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -792,18 +498,23 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesInPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.01_normalized, 3)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(exclude(servers.$hostname.kafka.BrokerTopicMetrics.BytesOutPerSec.*.OneMinuteRate, '__consumer_offsets'), 5, 4, 6)"
+          "target": "aliasByNode(servers.$hostname.loadavg.05_normalized, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "C",
+          "target": "aliasByNode(servers.$hostname.loadavg.15_normalized, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Bytes In/Out - $hostname",
+      "title": "Load - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -819,12 +530,12 @@
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "Bps",
+          "decimals": 2,
+          "format": "percentunit",
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -847,20 +558,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 6,
-        "y": 13
+        "h": 8,
+        "w": 4.8,
+        "x": 0,
+        "y": 8
       },
-      "id": 73,
+      "id": 32,
       "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -868,6 +580,146 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "hostname",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-1",
+          "value": "kafka-1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.cpu.total.user, 3, 4)",
+          "timeField": "@timestamp"
+        },
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.cpu.total.system, 3, 4)",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "decimals": 2,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 8
+      },
+      "id": 55,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -875,8 +727,8 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 56,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 32,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -890,14 +742,60 @@
       "steppedLine": false,
       "targets": [
         {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
+          "target": "aliasByNode(servers.$hostname.cpu.total.user, 3, 4)",
+          "timeField": "@timestamp"
+        },
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.cpu.total.system, 3, 4)",
+          "timeField": "@timestamp"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "RequestsPerSec - $hostname",
+      "title": "CPU - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -913,7 +811,7 @@
       },
       "yaxes": [
         {
-          "format": "ops",
+          "format": "percentunit",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -926,7 +824,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": false
+          "show": true
         }
       ],
       "yaxis": {
@@ -940,206 +838,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 12,
-        "y": 13
-      },
-      "id": 74,
-      "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 56,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-3",
-          "value": "kafka-3"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "RequestsPerSec - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "ops",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 18,
-        "y": 13
-      },
-      "id": 75,
-      "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 56,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-1",
-          "value": "mon-1"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "RequestsPerSec - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "ops",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 20
+        "h": 8,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 8
       },
       "id": 56,
       "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -1147,6 +860,429 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 32,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-3",
+          "value": "kafka-3"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.cpu.total.user, 3, 4)",
+          "timeField": "@timestamp"
+        },
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.cpu.total.system, 3, 4)",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "decimals": 2,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 8
+      },
+      "id": 57,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 32,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "mon-1",
+          "value": "mon-1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.cpu.total.user, 3, 4)",
+          "timeField": "@timestamp"
+        },
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.cpu.total.system, 3, 4)",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "decimals": 2,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 8
+      },
+      "id": 58,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 32,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "mon-2",
+          "value": "mon-2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.cpu.total.user, 3, 4)",
+          "timeField": "@timestamp"
+        },
+        {
+          "bucketAggs": [
+            {
+              "field": "@timestamp",
+              "id": "2",
+              "settings": {
+                "interval": "auto",
+                "min_doc_count": 0,
+                "trimEdges": 0
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "select field",
+              "id": "1",
+              "type": "count"
+            }
+          ],
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.cpu.total.system, 3, 4)",
+          "timeField": "@timestamp"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 0,
+        "y": 16
+      },
+      "id": 18,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -1167,14 +1303,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
+          "target": "aliasByNode(servers.$hostname.memory.MemFree, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.memory.MemTotal, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "RequestsPerSec - $hostname",
+      "title": "Memory - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1190,7 +1332,7 @@
       },
       "yaxes": [
         {
-          "format": "ops",
+          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1219,18 +1361,18 @@
       "datasource": "Graphite",
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 27
+        "h": 8,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 16
       },
-      "id": 76,
+      "id": 59,
       "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -1238,6 +1380,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -1245,8 +1388,308 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 56,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 18,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-2",
+          "value": "kafka-2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.memory.MemFree, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.memory.MemTotal, 3)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Memory - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 16
+      },
+      "id": 60,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 18,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-3",
+          "value": "kafka-3"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.memory.MemFree, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.memory.MemTotal, 3)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Memory - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 16
+      },
+      "id": 61,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 18,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "mon-1",
+          "value": "mon-1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.memory.MemFree, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.memory.MemTotal, 3)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Memory - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 16
+      },
+      "id": 62,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 18,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -1260,14 +1703,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.RequestMetrics.RequestsPerSec.*.MeanRate, 5, 6)"
+          "target": "aliasByNode(servers.$hostname.memory.MemFree, 3)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.memory.MemTotal, 3)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "RequestsPerSec - $hostname",
+      "title": "Memory - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1283,7 +1732,7 @@
       },
       "yaxes": [
         {
-          "format": "ops",
+          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1305,17 +1754,103 @@
       }
     },
     {
-      "collapsed": false,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
       "gridPos": {
-        "h": 1,
-        "w": 24,
+        "h": 8,
+        "w": 4.8,
         "x": 0,
-        "y": 34
+        "y": 24
       },
-      "id": 6,
-      "panels": [],
-      "title": "JVM",
-      "type": "row"
+      "id": 8,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "hostname",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-1",
+          "value": "kafka-1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_free, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_used, 4)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -1325,17 +1860,423 @@
       "datasource": "Graphite",
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
+        "h": 8,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 24
+      },
+      "id": 63,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-2",
+          "value": "kafka-2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_free, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_used, 4)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 24
+      },
+      "id": 64,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "kafka-3",
+          "value": "kafka-3"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_free, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_used, 4)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 24
+      },
+      "id": 65,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "mon-1",
+          "value": "mon-1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_free, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_used, 4)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 24
+      },
+      "id": 66,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 8,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "mon-2",
+          "value": "mon-2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_free, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.diskspace.root.byte_used, 4)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "decimals": 2,
+      "fill": 1,
+      "gridPos": {
+        "h": 10,
+        "w": 4.8,
         "x": 0,
-        "y": 35
+        "y": 32
       },
       "id": 2,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -1343,7 +2284,8 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "minSpan": 1,
+      "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1363,106 +2305,20 @@
       "steppedLine": false,
       "targets": [
         {
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.HeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "HeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "target": "aliasByNode(servers.$hostname.network.*.rx_byte, 3, 4)"
         },
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 6,
-        "y": 35
-      },
-      "id": 77,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-2",
-          "value": "kafka-2"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.HeapMemoryUsage.*)"
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.network.*.tx_byte, 3, 4)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "HeapMemoryUsage - $hostname",
+      "title": "Network - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1478,375 +2334,7 @@
       },
       "yaxes": [
         {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 12,
-        "y": 35
-      },
-      "id": 78,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-3",
-          "value": "kafka-3"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.HeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "HeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 18,
-        "y": 35
-      },
-      "id": 79,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-1",
-          "value": "mon-1"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.HeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "HeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 42
-      },
-      "id": 80,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 2,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-2",
-          "value": "mon-2"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.HeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "HeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 6,
-        "y": 42
-      },
-      "id": 81,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 10,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-2",
-          "value": "kafka-2"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.NonHeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "NonHeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
+          "format": "Bps",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1873,19 +2361,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 12,
-        "y": 42
+        "h": 10,
+        "w": 4.8,
+        "x": 4.8,
+        "y": 32
       },
-      "id": 82,
+      "id": 67,
       "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -1893,557 +2383,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 10,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-3",
-          "value": "kafka-3"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.NonHeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "NonHeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 18,
-        "y": 42
-      },
-      "id": 83,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 10,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-1",
-          "value": "mon-1"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.NonHeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "NonHeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 49
-      },
-      "id": 10,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": "hostname",
-      "repeatDirection": "h",
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-1",
-          "value": "kafka-1"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.NonHeapMemoryUsage.*)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "NonHeapMemoryUsage - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 6,
-        "y": 49
-      },
-      "id": 85,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 16,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-2",
-          "value": "kafka-2"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.ThreadCount)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "TheadCount - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 12,
-        "y": 49
-      },
-      "id": 86,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 16,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-3",
-          "value": "kafka-3"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.ThreadCount)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "TheadCount - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 18,
-        "y": 49
-      },
-      "id": 87,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 16,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-1",
-          "value": "mon-1"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.ThreadCount)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "TheadCount - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 2,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 55
-      },
-      "id": 89,
-      "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -2451,8 +2391,8 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 68,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 2,
       "scopedVars": {
         "hostname": {
           "selected": false,
@@ -2460,394 +2400,26 @@
           "value": "kafka-2"
         }
       },
-      "seriesOverrides": [
-        {
-          "alias": "/CollectionTime/",
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "refCount": 0,
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Old_Generation.*, 4, 5)",
-          "timeField": "@timestamp"
-        },
-        {
-          "refCount": 0,
-          "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Young_Generation.*, 4, 5)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "GarbageCollector - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Count",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "ms",
-          "label": "Time",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 2,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 12,
-        "y": 55
-      },
-      "id": 90,
-      "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 68,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-3",
-          "value": "kafka-3"
-        }
-      },
-      "seriesOverrides": [
-        {
-          "alias": "/CollectionTime/",
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "refCount": 0,
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Old_Generation.*, 4, 5)",
-          "timeField": "@timestamp"
-        },
-        {
-          "refCount": 0,
-          "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Young_Generation.*, 4, 5)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "GarbageCollector - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Count",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "ms",
-          "label": "Time",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 2,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 55
-      },
-      "id": 91,
-      "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 68,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-1",
-          "value": "mon-1"
-        }
-      },
-      "seriesOverrides": [
-        {
-          "alias": "/CollectionTime/",
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "bucketAggs": [
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
-          "refCount": 0,
-          "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Old_Generation.*, 4, 5)",
-          "timeField": "@timestamp"
-        },
-        {
-          "refCount": 0,
-          "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Young_Generation.*, 4, 5)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "GarbageCollector - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Count",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "ms",
-          "label": "Time",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 56
-      },
-      "id": 84,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 10,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-2",
-          "value": "mon-2"
-        }
-      },
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.NonHeapMemoryUsage.*)"
+          "target": "aliasByNode(servers.$hostname.network.*.rx_byte, 3, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.network.*.tx_byte, 3, 4)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "NonHeapMemoryUsage - $hostname",
+      "title": "Network - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2863,7 +2435,7 @@
       },
       "yaxes": [
         {
-          "format": "decbytes",
+          "format": "Bps",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2890,202 +2462,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 0,
-        "y": 63
-      },
-      "id": 16,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": "hostname",
-      "repeatDirection": "h",
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "kafka-1",
-          "value": "kafka-1"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.ThreadCount)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "TheadCount - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 0,
-        "y": 69
-      },
-      "id": 88,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "repeat": null,
-      "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 16,
-      "scopedVars": {
-        "hostname": {
-          "selected": false,
-          "text": "mon-2",
-          "value": "mon-2"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasByMetric(servers.$hostname.kafka.jvm.ThreadCount)"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "TheadCount - $hostname",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Graphite",
-      "fill": 2,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 75
+        "h": 10,
+        "w": 4.8,
+        "x": 9.6,
+        "y": 32
       },
       "id": 68,
       "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -3093,66 +2484,43 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "repeat": "hostname",
+      "repeat": null,
       "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 2,
       "scopedVars": {
         "hostname": {
           "selected": false,
-          "text": "kafka-1",
-          "value": "kafka-1"
+          "text": "kafka-3",
+          "value": "kafka-3"
         }
       },
-      "seriesOverrides": [
-        {
-          "alias": "/CollectionTime/",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "bucketAggs": [
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Old_Generation.*, 4, 5)",
-          "timeField": "@timestamp"
+          "target": "aliasByNode(servers.$hostname.network.*.rx_byte, 3, 4)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Young_Generation.*, 4, 5)"
+          "target": "aliasByNode(servers.$hostname.network.*.tx_byte, 3, 4)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "GarbageCollector - $hostname",
+      "title": "Network - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -3168,20 +2536,20 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Count",
+          "format": "Bps",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": "0",
           "show": true
         },
         {
-          "format": "ms",
-          "label": "Time",
+          "format": "short",
+          "label": null,
           "logBase": 1,
           "max": null,
-          "min": "0",
-          "show": true
+          "min": null,
+          "show": false
         }
       ],
       "yaxis": {
@@ -3195,20 +2563,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Graphite",
-      "fill": 2,
+      "decimals": 2,
+      "fill": 1,
       "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 83
+        "h": 10,
+        "w": 4.8,
+        "x": 14.399999999999999,
+        "y": 32
       },
-      "id": 92,
+      "id": 69,
       "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
         "values": true
@@ -3216,6 +2585,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "connected",
       "percentage": false,
       "pointradius": 5,
@@ -3223,61 +2593,35 @@
       "renderer": "flot",
       "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1536494387490,
-      "repeatPanelId": 68,
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 2,
       "scopedVars": {
         "hostname": {
           "selected": false,
-          "text": "mon-2",
-          "value": "mon-2"
+          "text": "mon-1",
+          "value": "mon-1"
         }
       },
-      "seriesOverrides": [
-        {
-          "alias": "/CollectionTime/",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "bucketAggs": [
-            {
-              "field": "@timestamp",
-              "id": "2",
-              "settings": {
-                "interval": "auto",
-                "min_doc_count": 0,
-                "trimEdges": 0
-              },
-              "type": "date_histogram"
-            }
-          ],
-          "hide": false,
-          "metrics": [
-            {
-              "field": "select field",
-              "id": "1",
-              "type": "count"
-            }
-          ],
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Old_Generation.*, 4, 5)",
-          "timeField": "@timestamp"
+          "target": "aliasByNode(servers.$hostname.network.*.rx_byte, 3, 4)"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "aliasByNode(servers.$hostname.kafka.jvm.G1_Young_Generation.*, 4, 5)"
+          "target": "aliasByNode(servers.$hostname.network.*.tx_byte, 3, 4)"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "GarbageCollector - $hostname",
+      "title": "Network - $hostname",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -3293,20 +2637,121 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Count",
+          "format": "Bps",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": "0",
           "show": true
         },
         {
-          "format": "ms",
-          "label": "Time",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "decimals": 2,
+      "fill": 1,
+      "gridPos": {
+        "h": 10,
+        "w": 4.8,
+        "x": 19.2,
+        "y": 32
+      },
+      "id": 70,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1536610282995,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "hostname": {
+          "selected": false,
+          "text": "mon-2",
+          "value": "mon-2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.$hostname.network.*.rx_byte, 3, 4)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.$hostname.network.*.tx_byte, 3, 4)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Network - $hostname",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "Bps",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": "0",
           "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
         }
       ],
       "yaxis": {
@@ -3324,10 +2769,9 @@
       {
         "allValue": null,
         "current": {
+          "selected": false,
           "text": "All",
-          "value": [
-            "$__all"
-          ]
+          "value": "$__all"
         },
         "datasource": "Graphite",
         "hide": 0,
@@ -3336,7 +2780,7 @@
         "multi": true,
         "name": "hostname",
         "options": [],
-        "query": "servers.kafka-*",
+        "query": "servers.*",
         "refresh": 1,
         "regex": "",
         "sort": 0,
@@ -3378,7 +2822,7 @@
     ]
   },
   "timezone": "",
-  "title": "Kafka Overview (Graphite)",
-  "uid": "esoMEoniz",
-  "version": 1
+  "title": "System Overview (Graphtie)",
+  "uid": "KHBpDnTmz",
+  "version": 12
 }

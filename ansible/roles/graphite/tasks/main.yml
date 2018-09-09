@@ -19,23 +19,21 @@
   with_items:
     - graphite-web
     - python-carbon
-  register: graphite_install
+  notify: "restart graphite"
 
 - name: copy /etc/httpd/conf.d/graphite-web.conf
   become: yes
   template:
     src: templates/graphite-web.conf.j2
     dest: /etc/httpd/conf.d/graphite-web.conf
-  register: graphite_web
-  when: graphite_install.changed
+  notify: "restart graphite"
 
 - name: graphite syncdb
   become: yes
   command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
   args:
     creates: /var/lib/graphite-web/graphite.db
-  when: graphite_install.changed
-  register: graphite_syncdb
+  notify: "restart graphite"
 
 - name: set /var/lib/graphite-web apache:apache
   become: yes
@@ -44,21 +42,7 @@
     owner: apache
     group: apache
     recurse: yes
+  notify: "restart graphite"
 
-- name: restart carbon-cache
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: carbon-cache
-    daemon_reload: yes
-  when: graphite_install.changed or graphite_syncdb.changed
-
-- name: restart httpd
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: httpd
-    daemon_reload: yes
-  when: graphite_install.changed or graphite_web.changed
+- name: run handlers
+  meta: flush_handlers

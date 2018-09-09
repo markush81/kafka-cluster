@@ -4,31 +4,21 @@
   get_url:
     url: "{{ url }}"
     dest: "{{ download }}/{{ file }}"
+    checksum: "{{ checksum }}"
 
 - name: install {{ download }}/{{ file }}
   become: yes
   yum:
     name: "{{ download }}/{{ file }}"
     state: present
-  register: kibana_install
+  notify: "restart kibana"
 
 - name: copy /etc/kibana/kibana.yml
   become: yes
   template:
     src: templates/kibana.yml.j2
     dest: /etc/kibana/kibana.yml
-  register: kibana_yml
+  notify: "restart kibana"
 
-- name: restart {{ role_path|basename }}
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: kibana
-    daemon_reload: yes
-  when: kibana_install.changed or kibana_yml.changed
-
-- name: wait until kibana has started
-  wait_for:
-    host: "{{ inventory_hostname }}"
-    port: 5601
+- name: run handlers
+  meta: flush_handlers

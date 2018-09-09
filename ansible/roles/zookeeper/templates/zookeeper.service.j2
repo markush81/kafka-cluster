@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 EnvironmentFile={{ zookeeper_home }}/zookeeper.environment
 Type=forking
-User=vagrant
+User=root
 ExecStart={{ zookeeper_home }}/bin/zkServer.sh start
 ExecStop={{ zookeeper_home }}/bin/zkServer.sh stop
 Restart=on-failure

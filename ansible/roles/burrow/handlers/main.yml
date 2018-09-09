@@ -1,0 +1,9 @@
+---
+- name: restart burrow service
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: burrow
+    daemon_reload: yes
+  listen: "restart burrow"

@@ -32,9 +32,9 @@
   become: yes
   yum:
     update_cache: yes
-    name: grafana
+    name: grafana-5.2.4-1
     state: installed
-  register: grafana_install
+  notify: "restart grafana-server"
 
 - name: setup datasources
   become: yes
@@ -44,8 +44,7 @@
   with_items:
     - graphite
     - elasticsearch
-    - prometheus
-  register: grafana_datasources
+  notify: "restart grafana-server"
 
 - name: setup dashboards
   become: yes
@@ -60,7 +59,7 @@
     path: "{{ grafana_dashboards }}"
     state: directory
     mode: 0755
-  register: grafana_dashboards_dir
+  notify: "restart grafana-server"
 
 - name: copy dashboards
   become: yes
@@ -68,18 +67,9 @@
     src: dashboards/{{ item }}.json
     dest: "{{ grafana_dashboards }}/{{ item }}.json"
   with_items:
-    - system_kafka
-    - system_mon
     - kafka_graphite
-    - kafka_prometheus
-    - kafka_topics
-  register: grafana_dashbaords_items
+    - system_graphite
+  notify: "restart grafana-server"
 
-- name: restart grafana-server
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: grafana-server
-    daemon_reload: yes
-  when: grafana_install.changed or grafana_datasources.changed or grafana_dashboards_setup.changed or grafana_dashboards_dir.changed or grafana_dashbaords_items.changed
+- name: run handlers
+  meta: flush_handlers

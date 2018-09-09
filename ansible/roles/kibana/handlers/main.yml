@@ -1,0 +1,15 @@
+---
+- name: restart kibana service
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: kibana
+    daemon_reload: yes
+  listen: "restart kibana"
+
+- name: wait until kibana has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 5601
+  listen: "restart kibana"

@@ -1,38 +1,15 @@
 ---
-- name: add grafana repo
-  become: yes
-  yum_repository:
-    name: grafana
-    description: Grafana YUM repo
-    baseurl: https://packagecloud.io/grafana/stable/el/$releasever/$basearch/
-    gpgcheck: yes
-    repo_gpgcheck: yes
-    gpgkey: https://packagecloud.io/gpg.key https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana
-    sslverify: yes
-    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
 
-- name: add the repository keys
-  become: yes
-  rpm_key:
-    key: "{{ item }}"
-    state: present
-  with_items:
-    - https://packagecloud.io/gpg.key
-    - https://grafanarel.s3.amazonaws.com/RPM-GPG-KEY-grafana
-  register: import_keys
+- name: download {{ url }}
+  run_once: true
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ download }}/{{ file }}"
 
-- name: yum make cache
-  become: yes
-  command: "yum -q makecache -y"
-  args:
-    warn: false
-  when: import_keys.changed
-
-- name: install grafana
+- name: install {{ download }}/{{ file }}
   become: yes
   yum:
-    update_cache: yes
-    name: grafana-5.2.4-1
+    name: "{{ download }}/{{ file }}"
     state: installed
   notify: "restart grafana-server"
 

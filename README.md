@@ -5,21 +5,21 @@
 In case you need a local cluster providing Kafka (**with SSL and ACL**) including a monitoring suite.
 
 * [Apache Kafka 2.0.0](http://kafka.apache.org/20/documentation.html)
-* [Elastic Search 6.4.0](https://www.elastic.co/guide/en/elasticsearch/reference/6.4/index.html)
-* [Logstash 6.4.0](https://www.elastic.co/guide/en/logstash/6.4/index.html)
-* [Kibana 6.4.0](https://www.elastic.co/guide/en/kibana/6.4/index.html)
-* [Grafana 5.2.4](https://grafana.com)
-* [Graphite 0.9.16](https://graphiteapp.org)
+* [Elastic Search 6.5.4](https://www.elastic.co/guide/en/elasticsearch/reference/6.5/index.html)
+* [Logstash 6.5.4](https://www.elastic.co/guide/en/logstash/6.5/index.html)
+* [Kibana 6.5.4](https://www.elastic.co/guide/en/kibana/6.5/index.html)
+* [Grafana 5.4.2](https://grafana.com)
+* [Graphite-Web & Python-Carbon 0.9.16](https://graphiteapp.org)
 * [Jmxtrans Agent 1.2.6](https://github.com/jmxtrans/jmxtrans-agent/)
 * [Burrow 1.1.0](https://github.com/linkedin/Burrow)
 * [Diamond 4.0.515](https://diamond.readthedocs.io/en/latest/)
 
 ## Prerequisites
 
-* [Vagrant](https://www.vagrantup.com) (tested with 2.1.2)
-* [VirtualBox](http://virtualbox.org) (tested with 5.2.18)
-* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.6.4)
-* The VMs take approx 12 GB of RAM, so you should have more than that.
+* [Vagrant](https://www.vagrantup.com) (tested with 2.2.3)
+* [VirtualBox](http://virtualbox.org) (tested with 6.0.0)
+* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.7.5)
+* The VMs take approx 15 GB of RAM, so you should have more than that.
 
 
 :warning: Vagrant might ask you for your admin password. The reason behind is, that `vagrant-hostsupdater` is used to have the vms available with their names in your network.
@@ -61,7 +61,7 @@ The result if everything wents fine should be
 |Elasticsearch|[http://mon-1:9200](http://mon-1:9200)|
 |Grafana|[http://mon-2:3000](http://mon-2:3000)|
 |Graphite|[http://mon-2](http://mon-2)|
-|Burrow|[http://kafka-3:8000/burrow/admin](http://kafka-3:8000/burrow/admin)|
+|Burrow|[http://kafka-1:8000/burrow/admin](http://kafka-1:8000/burrow/admin)|
 
 
 # Monitoring
@@ -79,12 +79,14 @@ Gathered with Jmxtrans Agent from Kafka Brokers.
 
 ![Kafka Overview](doc/kafka_overview.png)
 
+![Filebeat Kafka](doc/filbeat_kafka.png)
+
 # Usage
 
 ## Zookeeper
 
 ```bash
-lucky:~ markus$ vagrant ssh kafka-1
+vagrant ssh kafka-1
 zkCli.sh -server kafka-1:2181/
 Connecting to kafka-1:2181/
 ...
@@ -103,12 +105,13 @@ WatchedEvent state:SyncConnected type:None path:null
 ### Topic Creation
 
 ```bash
-lucky:~ markus$ vagrant ssh kafka-1
+vagrant ssh kafka-1
 
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 1 --partitions 4 --topic sample
+
 ```
 
 ```bash
@@ -137,6 +140,7 @@ KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_j
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group console --resource-pattern-type PREFIXED
 
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
+
 ```
 
 ```bash
@@ -161,6 +165,7 @@ Current ACLs for resource `Topic:PREFIXED:sample`:
 
 ```bash
 kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample
+
 Hey, is Kafka up and running?
 ```
 
@@ -168,6 +173,7 @@ Hey, is Kafka up and running?
 
 ```bash
 kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console-1 --topic sample --from-beginning
+
 Hey, is Kafka up and running?
 ```
 

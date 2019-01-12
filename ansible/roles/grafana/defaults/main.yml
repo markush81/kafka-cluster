@@ -1,2 +1,4 @@
 ---
 grafana_dashboards: /var/lib/grafana/dashboards
+file: grafana-5.4.2-1.x86_64.rpm
+url: https://dl.grafana.com/oss/release/{{ file }}

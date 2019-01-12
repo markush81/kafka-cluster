@@ -1,4 +1,4 @@
 ---
-file: elasticsearch-6.4.0.rpm
+file: elasticsearch-6.5.4.rpm
 url: https://artifacts.elastic.co/downloads/elasticsearch/{{ file }}
-checksum: md5:e8cd7bad24575f5b9f14e4277280bcdb
+checksum: md5:8c81044473b2e5851fbfcecde0019eba

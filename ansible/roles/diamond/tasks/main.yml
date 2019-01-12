@@ -1,22 +1,12 @@
 ---
-- name: install epel repo
-  become: yes
-  yum:
-    name: "{{ item }}"
-    update_cache: true
-    state: installed
-  with_items:
-    - http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
 
-- name: install python pip and devel
+- name: install 'python-pip', 'python-devel'
   become: yes
   yum:
     update_cache: yes
-    name: "{{ item }}"
+    name: ['python-pip', 'python-devel']
     state: installed
-  with_items:
-    - python-pip
-    - python-devel
+    enablerepo: "epel"
 
 - name: install diamond
   become: yes

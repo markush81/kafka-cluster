@@ -1,0 +1,52 @@
+---
+- name: download {{ url }}
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ download }}/{{ file }}"
+    checksum: "{{ checksum }}"
+
+- name: install {{ download }}/{{ file }}
+  become: yes
+  yum:
+    name: "{{ download }}/{{ file }}"
+    state: present
+  notify: restart filebeat
+
+- name: copy filebeat.yml /etc/filebeat/filebeat.yml
+  become: yes
+  template:
+    src: templates/filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+  notify: restart filebeat
+
+- name: create /etc/filebeat/configs
+  become: yes
+  become_method: sudo
+  file:
+    path: /etc/filebeat/configs
+    state: directory
+    mode: 0755
+
+- name: copy kafka configs to /etc/filebeat/modules.d/kafka.yml
+  become: yes
+  template:
+    src: templates/kafka.yml.j2
+    dest: /etc/filebeat/modules.d/kafka.yml
+  when: inventory_hostname in groups['kafka']
+  notify: restart filebeat
+
+- meta: flush_handlers
+
+- name: filebeat enable kafka module
+  become: yes
+  command: filebeat modules enable kafka
+
+- name: setup filebeat elasticsearch template
+  become: yes
+  command: filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]'
+  run_once: true
+
+- name: setup filebeat dashboards
+  become: yes
+  command: filebeat setup --dashboards -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]' -E 'setup.kibana.host={{ groups['elk'][0] }}:5601'
+  run_once: true

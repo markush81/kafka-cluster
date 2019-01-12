@@ -1,14 +1,8 @@
-- hosts: all
-  remote_user: vagrant
-  order: inventory
-  serial: 100%
-  roles:
-  - java8
-
 - hosts: elk
   remote_user: vagrant
   serial: 100%
   roles:
+  - java8
   - elasticsearch
   - logstash
   - kibana
@@ -26,6 +20,7 @@
   remote_user: vagrant
   serial: 33%
   roles:
+    - java8
     - secure
     - zookeeper
 
@@ -33,10 +28,12 @@
   remote_user: vagrant
   serial: 33%
   roles:
+    - java8
     - kafka
     - diamond
+    - filebeat
 
-- hosts: kafka-3
+- hosts: kafka-1
   remote_user: vagrant
   serial: 100%
   roles:

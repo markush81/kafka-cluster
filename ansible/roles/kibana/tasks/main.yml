@@ -22,3 +22,42 @@
 
 - name: run handlers
   meta: flush_handlers
+
+- name: wait until kibana api is reachable
+  uri:
+    url: http://{{ inventory_hostname }}:5601/api
+    status_code: 404
+  retries: 5
+  delay: 5
+  register: result
+  until: result.status == 404
+
+- name: create index patterns
+  uri:
+    url: "http://{{ inventory_hostname }}:5601/api/saved_objects/index-pattern/{{ item }}?overwrite=true"
+    method: POST
+    headers:
+      kbn-xsrf: true
+    body_format: json
+    body: "{ \"attributes\": { \"title\": \"{{ item }}\", \"timeFieldName\": \"@timestamp\" } }"
+  with_items:
+    - burrow-*
+
+- name: set default index pattern
+  uri:
+    url: "http://{{ inventory_hostname }}:5601/api/kibana/settings/defaultIndex"
+    method: POST
+    headers:
+      kbn-xsrf: true
+    body_format: json
+    body: "{ \"value\": \"burrow-*\"  }"
+
+#- name: import dashboards
+#  uri:
+#    url: "http://{{ inventory_hostname }}:5601/api/kibana/dashboards/import?force=true"
+#    method: POST
+#    headers:
+#      kbn-xsrf: true
+#    body_format: json
+#    src: dashboards/{{ item }}
+#  with_items:

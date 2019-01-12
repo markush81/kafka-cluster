@@ -1,4 +1,4 @@
 ---
-file: kibana-6.4.0-x86_64.rpm
+file: kibana-6.5.4-x86_64.rpm
 url: https://artifacts.elastic.co/downloads/kibana/{{ file }}
-checksum: md5:9482abaf04a5f9e6d28f222eca84de5f
+checksum: md5:4e6e1dfd96f7c07053988a65c69d21c6

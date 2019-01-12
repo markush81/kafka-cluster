@@ -1,25 +1,19 @@
 ---
 
-- name: install epel repo
+- name: install graphite-web, python-carbon and python-pip
   become: yes
   yum:
-    name: "{{ item }}"
-    update_cache: true
-    state: installed
-  with_items:
-    - http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm
-
-- name: install graphite and carbon
-  become: yes
-  yum:
-    name: "{{ item }}"
+    name: ['graphite-web', 'python-carbon', 'python-pip']
     update_cache: true
     state: installed
     enablerepo: "epel"
-  with_items:
-    - graphite-web
-    - python-carbon
   notify: "restart graphite"
+
+- name: install django==1.4
+  become: yes
+  pip:
+    name:
+      - django==1.4
 
 - name: copy /etc/httpd/conf.d/graphite-web.conf
   become: yes

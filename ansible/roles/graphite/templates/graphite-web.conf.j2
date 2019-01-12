@@ -1,7 +1,7 @@
 # Graphite Web Basic mod_wsgi vhost
 
 <VirtualHost *:80>
-    ServerName graphite-web
+    ServerName {{ inventory_hostname }}
     DocumentRoot "/usr/share/graphite/webapp"
     ErrorLog /var/log/httpd/graphite-web-error.log
     CustomLog /var/log/httpd/graphite-web-access.log common

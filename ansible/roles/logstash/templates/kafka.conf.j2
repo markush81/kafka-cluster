@@ -1,10 +1,16 @@
 input {
   burrow {
     client_config => {
-        url => "http://kafka-3:8000"
+        url => "http://{{ groups['kafka'][0] }}:8000"
     }
     schedule => { every => "30s" }
   }
+}
+
+filter {
+    mutate {
+        add_field => { "module" => "burrow" }
+    }
 }
 
 output {

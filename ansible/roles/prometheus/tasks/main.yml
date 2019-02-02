@@ -1,0 +1,37 @@
+---
+- name: download {{ url }}
+  run_once: true
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ download }}/{{ file }}"
+
+- name: extract {{ download }}/{{ file }}
+  become: yes
+  unarchive:
+    src: "{{ download }}/{{ file }}"
+    dest: "{{ usr_local }}"
+    copy: no
+    creates: "{{ prometheus_home }}"
+  notify: restart prometheus
+
+- name: set ownership on {{ prometheus_home }}
+  become: yes
+  file:
+    path: "{{ prometheus_home }}"
+    owner: vagrant
+    group: vagrant
+    recurse: yes
+    mode: 0755
+
+- name: copy prometheus.yml to {{ prometheus_home }}/prometheus.yml
+  template:
+    src: templates/prometheus.yml.j2
+    dest: "{{ prometheus_home }}/prometheus.yml"
+  notify: restart prometheus
+
+- name: install prometheus systemd unit file
+  become: yes
+  template:
+    src: templates/prometheus.service.j2
+    dest: "{{ system_units }}/prometheus.service"
+  notify: restart prometheus

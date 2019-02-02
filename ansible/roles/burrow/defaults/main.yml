@@ -1,4 +1,0 @@
----
-version: 1.1.0
-file: "Burrow_{{ version }}_linux_amd64.tar.gz"
-url: https://github.com/linkedin/Burrow/releases/download/v{{ version }}/{{ file }}

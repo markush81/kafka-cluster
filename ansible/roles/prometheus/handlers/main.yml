@@ -1,9 +1,10 @@
 ---
-- name: restart filebeat
+
+- name: restart prometheus
   become: yes
   systemd:
     enabled: yes
     state: restarted
-    name: filebeat
+    name: prometheus
     daemon_reload: yes
-  listen: restart filebeat
+  listen: "restart prometheus"

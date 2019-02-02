@@ -8,6 +8,9 @@ mon-1
 [grafana]
 mon-2
 
+[prometheus]
+mon-2
+
 [zookeeper]
 kafka-1
 kafka-2

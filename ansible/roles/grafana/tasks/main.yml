@@ -1,16 +1,28 @@
 ---
 
-- name: download {{ url }}
-  run_once: true
-  get_url:
-    url: "{{ url }}"
-    dest: "{{ download }}/{{ file }}"
+- name: add grafana repo
+  become: yes
+  yum_repository:
+    name: grafana
+    description: Grafana repository
+    file: grafana
+    baseurl: https://packages.grafana.com/oss/rpm
+    gpgcheck: true
+    gpgkey: https://packages.grafana.com/gpg.key
+    enabled: true
 
-- name: install {{ download }}/{{ file }}
+- name: install grafana
   become: yes
   yum:
-    name: "{{ download }}/{{ file }}"
+    name: grafana-{{ version }}
     state: installed
+  notify: "restart grafana-server"
+
+- name: setup grafana
+  become: yes
+  template:
+    src: templates/grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
   notify: "restart grafana-server"
 
 - name: setup datasources
@@ -19,7 +31,7 @@
     src: templates/datasources/{{ item }}.yml.j2
     dest: /etc/grafana/provisioning/datasources/{{ item }}.yml
   with_items:
-    - graphite
+    - prometheus
     - elasticsearch
   notify: "restart grafana-server"
 
@@ -28,7 +40,7 @@
   template:
     src: templates/dashboards/dashboards.yml.j2
     dest: /etc/grafana/provisioning/dashboards/dashboards.yml
-  register: grafana_dashboards_setup
+  notify: "restart grafana-server"
 
 - name: create {{ grafana_dashboards }}
   become: yes
@@ -44,9 +56,4 @@
     src: dashboards/{{ item }}.json
     dest: "{{ grafana_dashboards }}/{{ item }}.json"
   with_items:
-    - kafka_graphite
-    - system_graphite
-  notify: "restart grafana-server"
-
-- name: run handlers
-  meta: flush_handlers
+    - kafka

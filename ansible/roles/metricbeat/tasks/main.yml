@@ -1,0 +1,30 @@
+---
+
+- import_role:
+    name: elastic
+
+- name: install metricbeat
+  become: yes
+  yum:
+    name: metricbeat-{{ version }}
+    state: present
+    update_cache: yes
+  notify: restart metricbeat
+
+- name: copy metricbeat.yml /etc/metricbeat/metricbeat.yml
+  become: yes
+  template:
+    src: templates/metricbeat.yml.j2
+    dest: /etc/metricbeat/metricbeat.yml
+  notify: restart metricbeat
+
+- meta: flush_handlers
+
+- name: metricbeat modules enable system
+  become: yes
+  command: metricbeat modules enable system
+
+- name: setup metricbeat
+  become: yes
+  command: metricbeat setup  -E 'setup.kibana.host={{ groups['elk'][0] }}:5601'
+  run_once: true

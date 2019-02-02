@@ -1,4 +1,1 @@
 ---
-file: filebeat-6.5.4-x86_64.rpm
-url: https://artifacts.elastic.co/downloads/beats/filebeat/{{ file }}
-checksum: md5:218a46260792e80704706dc903789150

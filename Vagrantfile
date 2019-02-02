@@ -50,6 +50,16 @@ Vagrant.configure("2") do |config|
 
     mon.vm.provision :ansible do |ansible|
       ansible.compatibility_mode = "2.0"
+      ansible.limit = "mon"
+      ansible.playbook = "ansible/network.yml"
+      ansible.inventory_path = "ansible/inventories/vbox"
+      ansible.raw_arguments  = [
+        "-vv"
+      ]
+    end
+    
+    mon.vm.provision :ansible do |ansible|
+      ansible.compatibility_mode = "2.0"
       ansible.limit = "grafana"
       ansible.playbook = "ansible/cluster.yml"
       ansible.inventory_path = "ansible/inventories/vbox"

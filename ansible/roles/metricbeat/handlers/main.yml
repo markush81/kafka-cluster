@@ -1,9 +1,9 @@
 ---
-- name: restart filebeat
+- name: restart metricbeat
   become: yes
   systemd:
     enabled: yes
     state: restarted
-    name: filebeat
+    name: metricbeat
     daemon_reload: yes
-  listen: restart filebeat
+  listen: restart metricbeat

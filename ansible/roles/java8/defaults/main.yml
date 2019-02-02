@@ -1,5 +1,4 @@
 ---
 jdk: "{{ java }}"
-file: jdk-8u192-linux-x64.rpm
-url: https://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/{{ file }}
-jmx_trans: https://github.com/jmxtrans/jmxtrans-agent/releases/download/jmxtrans-agent-1.2.6/jmxtrans-agent-1.2.6.jar
+file: jdk-8u201-linux-x64.rpm
+url: https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/{{ file }}

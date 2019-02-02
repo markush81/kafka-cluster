@@ -1,16 +1,21 @@
 ---
-- name: download {{ url }}
-  run_once: true
-  get_url:
-    url: "{{ url }}"
-    dest: "{{ download }}/{{ file }}"
-    checksum: "{{ checksum }}"
 
-- name: install {{ download }}/{{ file }}
+- import_role:
+    name: elastic
+
+- name: install logstash
   become: yes
   yum:
-    name: "{{ download }}/{{ file }}"
+    name: logstash-{{ version }}
     state: present
+    update_cache: yes
+  notify: "restart logstash"
+
+- name: configure logstash
+  become: yes
+  template:
+    src: templates/logstash.yml.j2
+    dest: /etc/logstash/logstash.yml
   notify: "restart logstash"
 
 - name: copy logstash pipelines /etc/logstash/conf.d
@@ -19,15 +24,5 @@
     src: templates/{{ item }}.conf.j2
     dest: /etc/logstash/conf.d/{{ item }}.conf
   with_items:
-    - kafka
+    - udp
   notify: "restart logstash"
-
-- name: install logstash-input-burrow plugin from rubygems.org
-  become: yes
-  shell: "/usr/share/logstash/bin/logstash-plugin install logstash-input-burrow"
-  args:
-    creates: /usr/share/logstash/vendor/bundle/jruby/2.3.0/gems/logstash-input-burrow-1.0.0
-  notify: "restart logstash"
-
-- name: run handlers
-  meta: flush_handlers

@@ -4,15 +4,14 @@
 
 In case you need a local cluster providing Kafka (**with SSL and ACL**) including a monitoring suite.
 
-* [Apache Kafka 2.0.0](http://kafka.apache.org/20/documentation.html)
-* [Elastic Search 6.5.4](https://www.elastic.co/guide/en/elasticsearch/reference/6.5/index.html)
-* [Logstash 6.5.4](https://www.elastic.co/guide/en/logstash/6.5/index.html)
-* [Kibana 6.5.4](https://www.elastic.co/guide/en/kibana/6.5/index.html)
-* [Grafana 5.4.2](https://grafana.com)
-* [Graphite-Web & Python-Carbon 0.9.16](https://graphiteapp.org)
-* [Jmxtrans Agent 1.2.6](https://github.com/jmxtrans/jmxtrans-agent/)
-* [Burrow 1.1.0](https://github.com/linkedin/Burrow)
-* [Diamond 4.0.515](https://diamond.readthedocs.io/en/latest/)
+* [Apache Kafka 2.1.0](http://kafka.apache.org/21/documentation.html)
+* [Elastic Search 6.6.0](https://www.elastic.co/guide/en/elasticsearch/reference/6.6/index.html)
+* [Logstash 6.6.0](https://www.elastic.co/guide/en/logstash/6.6/index.html)
+* [Kibana 6.6.0](https://www.elastic.co/guide/en/kibana/6.6/index.html)
+* [Filebeat 6.6.0](https://www.elastic.co/guide/en/beats/filebeat/6.6/index.html)
+* [Metricbeat 6.6.0](https://www.elastic.co/guide/en/beats/metricbeat/6.6/index.html)
+* [Grafana 5.4.3](https://grafana.com)
+* [Prometheus 2.7.1](https://prometheus.io)
 
 ## Prerequisites
 
@@ -44,11 +43,11 @@ The result if everything wents fine should be
 
 | IP | Hostname | Description | Settings |
 |:--- |:-- |:-- |:-- |
-|192.168.10.2|mon-1|running elk and diamond| 4096 MB RAM |
-|192.168.10.3|mon-2|running grafana, graphite and diamond| 2048 MB RAM |
-|192.168.10.4|kafka-1|running a kafka broker and diamond| 2048 MB RAM |
-|192.168.10.5|kafka-2|running a kafka broker and diamond| 2048 MB RAM |
-|192.168.10.6|kafka-3|running a kafka broker and diamond| 2048 MB RAM |
+|192.168.10.2|mon-1|running elk and metricbeat | 4096 MB RAM |
+|192.168.10.3|mon-2|running grafana, prometheus and metricbeat | 2048 MB RAM |
+|192.168.10.4|kafka-1|running a kafka broker and metricbeat | 2048 MB RAM |
+|192.168.10.5|kafka-2|running a kafka broker and metricbeat | 2048 MB RAM |
+|192.168.10.6|kafka-3|running a kafka broker and metricbeat | 2048 MB RAM |
 
 
 ### Connections
@@ -60,24 +59,29 @@ The result if everything wents fine should be
 |Kibana|[http://mon-1:5601](http://mon-1:5601)|
 |Elasticsearch|[http://mon-1:9200](http://mon-1:9200)|
 |Grafana|[http://mon-2:3000](http://mon-2:3000)|
-|Graphite|[http://mon-2](http://mon-2)|
-|Burrow|[http://kafka-1:8000/burrow/admin](http://kafka-1:8000/burrow/admin)|
-
+|Prometheus|[http://mon-2:9090](http://mon-2:9090)|
 
 # Monitoring
 
 ## System Overview
 
-Gathered with Diamond on each host.
+#### Kibana Infrastructure
 
-![System Overview](doc/system_overview.png)
+![System Overview](doc/system.png)
+![System Host Detail](doc/system_detail.png)
 
 
 ## Kafka Overview
 
-Gathered with Jmxtrans Agent from Kafka Brokers.
+#### Gathered with Prometheus Agent from Kafka Brokers.
 
 ![Kafka Overview](doc/kafka_overview.png)
+
+#### Kibana Metricbeat
+
+![Metricbeat Kafka](doc/metricbeat_kafka.png)
+
+#### Kibana Logs
 
 ![Filebeat Kafka](doc/filbeat_kafka.png)
 

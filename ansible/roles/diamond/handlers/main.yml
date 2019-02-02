@@ -1,9 +1,0 @@
----
-- name: restart diamond service
-  become: yes
-  systemd:
-    enabled: yes
-    state: restarted
-    name: diamond
-    daemon_reload: yes
-  listen: "restart diamond"

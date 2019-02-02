@@ -1,16 +1,14 @@
 ---
-- name: download {{ url }}
-  run_once: true
-  get_url:
-    url: "{{ url }}"
-    dest: "{{ download }}/{{ file }}"
-    checksum: "{{ checksum }}"
 
-- name: install {{ download }}/{{ file }}
+- import_role:
+    name: elastic
+
+- name: install elasticsearch
   become: yes
   yum:
-    name: "{{ download }}/{{ file }}"
+    name: elasticsearch-{{ version }}
     state: present
+    update_cache: yes
   notify: "restart elasticsearch"
 
 - name: copy elasticsearch.yml to /etc/elasticsearch/elasticsearch.yml
@@ -19,6 +17,3 @@
     src: templates/elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
   notify: "restart elasticsearch"
-
-- name: run handlers
-  meta: flush_handlers

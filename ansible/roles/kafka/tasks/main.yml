@@ -53,11 +53,17 @@
     dest: "{{ kafka_home }}/config/zookeeper_jaas.conf"
   notify: "restart kafka"
 
-- name: copy jmxtrans-agent.xml {{ jmxtrans_dest }}/{{ jmxagent }}
+- name: download {{ prometheus_jmx }}
+  become: yes
+  get_url:
+    url: "{{ prometheus_jmx }}"
+    dest: "{{ kafka_home }}/prometheus-agent.jar"
+
+- name: copy prometheus-agent.yml {{ kafka_home }}/config/prometheus_agent.yml
   become: yes
   template:
-    src: templates/jmxtrans-agent.xml.j2
-    dest: "{{ jmxtrans_dest }}/{{ jmxagent }}"
+    src: templates/prometheus_agent.yml.j2
+    dest: "{{ kafka_home }}/config/prometheus_agent.yml"
   notify: "restart kafka"
 
 - name: create {{ kafka_log_dir }}
@@ -66,6 +72,26 @@
     path: "{{ kafka_log_dir }}"
     state: directory
   notify: "restart kafka"
+
+- name: copy filebeat kafka configs to /etc/filebeat/modules.d/kafka.yml
+  become: yes
+  template:
+    src: templates/filebeat_kafka.yml.j2
+    dest: /etc/filebeat/modules.d/kafka.yml
+
+- name: filebeat enable kafka module
+  become: yes
+  command: filebeat modules enable kafka
+
+- name: copy metricbeat kafka configs to /etc/metricbeat/modules.d/kafka.yml
+  become: yes
+  template:
+    src: templates/metricbeat_kafka.yml.j2
+    dest: /etc/metricbeat/modules.d/kafka.yml
+
+- name: metricbeat modules enable kafka
+  become: yes
+  command: metricbeat modules enable kafka
 
 - name: install kafka systemd unit file
   become: yes
@@ -84,6 +110,3 @@
 - name: allow cluster communication
   shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
   run_once: true
-
-- name: run handlers
-  meta: flush_handlers

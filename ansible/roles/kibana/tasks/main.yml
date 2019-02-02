@@ -1,16 +1,14 @@
 ---
-- name: download {{ url }}
-  run_once: true
-  get_url:
-    url: "{{ url }}"
-    dest: "{{ download }}/{{ file }}"
-    checksum: "{{ checksum }}"
 
-- name: install {{ download }}/{{ file }}
+- import_role:
+    name: elastic
+
+- name: install kibana
   become: yes
   yum:
-    name: "{{ download }}/{{ file }}"
+    name: kibana-{{ version }}
     state: present
+    update_cache: yes
   notify: "restart kibana"
 
 - name: copy /etc/kibana/kibana.yml
@@ -25,12 +23,12 @@
 
 - name: wait until kibana api is reachable
   uri:
-    url: http://{{ inventory_hostname }}:5601/api
-    status_code: 404
+    url: http://{{ inventory_hostname }}:5601/api/status
+    status_code: 200
   retries: 5
   delay: 5
   register: result
-  until: result.status == 404
+  until: result.status == 200
 
 - name: create index patterns
   uri:
@@ -41,7 +39,7 @@
     body_format: json
     body: "{ \"attributes\": { \"title\": \"{{ item }}\", \"timeFieldName\": \"@timestamp\" } }"
   with_items:
-    - burrow-*
+    - logstash-*
 
 - name: set default index pattern
   uri:
@@ -50,7 +48,7 @@
     headers:
       kbn-xsrf: true
     body_format: json
-    body: "{ \"value\": \"burrow-*\"  }"
+    body: "{ \"value\": \"logstash-*\"  }"
 
 #- name: import dashboards
 #  uri:

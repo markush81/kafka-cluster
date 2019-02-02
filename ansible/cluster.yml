@@ -6,21 +6,27 @@
   - elasticsearch
   - logstash
   - kibana
-  - diamond
+  - metricbeat
+
+- hosts: prometheus
+  remote_user: vagrant
+  serial: 100%
+  roles:
+  - metricbeat
+  - prometheus
 
 - hosts: grafana
   remote_user: vagrant
   serial: 100%
   roles:
-  - graphite
   - grafana
-  - diamond
 
 - hosts: zookeeper
   remote_user: vagrant
   serial: 33%
   roles:
     - java8
+    - metricbeat
     - secure
     - zookeeper
 
@@ -29,12 +35,5 @@
   serial: 33%
   roles:
     - java8
-    - kafka
-    - diamond
     - filebeat
-
-- hosts: kafka-1
-  remote_user: vagrant
-  serial: 100%
-  roles:
-    - burrow
+    - kafka

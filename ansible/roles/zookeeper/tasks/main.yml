@@ -61,13 +61,6 @@
     force: yes
   notify: "restart zookeeper"
 
-- name: copy jmxtrans-agent.xml {{ jmxtrans_dest }}/{{ jmxagent }}
-  become: yes
-  template:
-    src: templates/jmxtrans-agent.xml.j2
-    dest: "{{ jmxtrans_dest }}/{{ jmxagent }}"
-  notify: "restart zookeeper"
-
 - name: copy zookeeper.environment {{ zookeeper_home }}/zookeeper.environment
   become: yes
   template:
@@ -81,6 +74,3 @@
     src: templates/zookeeper.service.j2
     dest: "{{ system_units }}/zookeeper.service"
   notify: "restart zookeeper"
-
-- name: run handlers
-  meta: flush_handlers

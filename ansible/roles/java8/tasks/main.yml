@@ -7,21 +7,6 @@
       Cookie: 'oraclelicense=accept-securebackup-cookie'
     dest: "{{ download }}/{{ file }}"
 
-- name: create directory {{ item }}
-  become: yes
-  file:
-    path: "{{ item }}"
-    state: directory
-    mode: 0755
-  with_items:
-    - "{{ jmxtrans_dest }}"
-
-- name: download {{ jmx_trans }}
-  become: yes
-  get_url:
-    url: "{{ jmx_trans }}"
-    dest: "{{ jmxtrans_dest }}/jmxtrans-agent.jar"
-
 - name: install {{ download }}/{{ file }}
   become: yes
   yum:

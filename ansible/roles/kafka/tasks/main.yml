@@ -107,6 +107,16 @@
     dest: "{{ ssl_client_dir }}/client-ssl.properties"
   run_once: true
 
-- name: allow cluster communication
+- meta: flush_handlers
+
+- name: allow ClusterAction
   shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
+  run_once: true
+
+- name: allow Describe cluster
+  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
+  run_once: true
+
+- name: allow Describe __consumer_offsets
+  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf /usr/local/kafka/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --topic __consumer_offsets --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
   run_once: true

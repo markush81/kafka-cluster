@@ -21,19 +21,12 @@
   roles:
   - grafana
 
-- hosts: zookeeper
-  remote_user: vagrant
-  serial: 33%
-  roles:
-    - java8
-    - metricbeat
-    - secure
-    - zookeeper
-
 - hosts: kafka
   remote_user: vagrant
   serial: 33%
   roles:
     - java8
+    - metricbeat
     - filebeat
+    - secure
     - kafka

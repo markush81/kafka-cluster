@@ -3,18 +3,17 @@
   run_once: true
   get_url:
     url: "{{ url }}"
-    dest: "{{ download }}/{{ file }}"
+    dest: "/tmp/{{ file }}"
 
-- name: extract {{ download }}/{{ file }}
+- name: extract /tmp/{{ file }}
   become: yes
   unarchive:
-    src: "{{ download }}/{{ file }}"
+    src: "/tmp/{{ file }}"
     dest: "{{ usr_local }}"
     copy: no
-    creates: "{{ kafka_home }}"
     owner: root
     group: root
-  notify: "restart kafka"
+    creates: "{{ kafka_home }}"
 
 - name: link to /usr/local/kafka
   become: yes
@@ -32,91 +31,8 @@
     regexp: '^PATH'
     line: 'PATH=$PATH:{{ kafka_home }}/bin'
 
-- name: copy server.properties {{ kafka_home }}/config/server.properties
-  become: yes
-  template:
-    src: templates/server.properties.j2
-    dest: "{{ kafka_home }}/config/server.properties"
-  notify: "restart kafka"
+- import_tasks: zookeeper.yml
+  tags: zookeeper
 
-- name: copy kafka.environment {{ kafka_home }}/kafka.environment
-  become: yes
-  template:
-    src: templates/kafka.environment.j2
-    dest: "{{ kafka_home }}/kafka.environment"
-  notify: "restart kafka"
-
-- name: copy zookeeper_jaas.conf {{ kafka_home }}/config/zookeeper_jaas.conf
-  become: yes
-  template:
-    src: templates/zookeeper_jaas.conf.j2
-    dest: "{{ kafka_home }}/config/zookeeper_jaas.conf"
-  notify: "restart kafka"
-
-- name: download {{ prometheus_jmx }}
-  become: yes
-  get_url:
-    url: "{{ prometheus_jmx }}"
-    dest: "{{ kafka_home }}/prometheus-agent.jar"
-
-- name: copy prometheus-agent.yml {{ kafka_home }}/config/prometheus_agent.yml
-  become: yes
-  template:
-    src: templates/prometheus_agent.yml.j2
-    dest: "{{ kafka_home }}/config/prometheus_agent.yml"
-  notify: "restart kafka"
-
-- name: create {{ kafka_log_dir }}
-  become: yes
-  file:
-    path: "{{ kafka_log_dir }}"
-    state: directory
-  notify: "restart kafka"
-
-- name: copy filebeat kafka configs to /etc/filebeat/modules.d/kafka.yml
-  become: yes
-  template:
-    src: templates/filebeat_kafka.yml.j2
-    dest: /etc/filebeat/modules.d/kafka.yml
-
-- name: filebeat enable kafka module
-  become: yes
-  command: filebeat modules enable kafka
-
-- name: copy metricbeat kafka configs to /etc/metricbeat/modules.d/kafka.yml
-  become: yes
-  template:
-    src: templates/metricbeat_kafka.yml.j2
-    dest: /etc/metricbeat/modules.d/kafka.yml
-
-- name: metricbeat modules enable kafka
-  become: yes
-  command: metricbeat modules enable kafka
-
-- name: install kafka systemd unit file
-  become: yes
-  template:
-    src: templates/kafka.service.j2
-    dest: "{{ system_units }}/kafka.service"
-  notify: "restart kafka"
-
-- name: create {{ exchange }}/client-ssl.properties
-  become: yes
-  template:
-    src: templates/client-ssl.properties.j2
-    dest: "{{ ssl_client_dir }}/client-ssl.properties"
-  run_once: true
-
-- meta: flush_handlers
-
-- name: allow ClusterAction
-  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
-  run_once: true
-
-- name: allow Describe cluster
-  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
-  run_once: true
-
-- name: allow Describe __consumer_offsets
-  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf /usr/local/kafka/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --topic __consumer_offsets --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
-  run_once: true
+- import_tasks: kafka.yml
+  tags: kafka

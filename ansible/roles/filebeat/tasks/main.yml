@@ -30,5 +30,6 @@
 
 - name: setup filebeat
   become: yes
-  command: filebeat setup -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]' -E 'setup.kibana.host={{ groups['elk'][0] }}:5601'
-  run_once: true
+  shell: filebeat setup -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["{{ groups['elk'][0] }}:9200"]' -E 'setup.kibana.host={{ groups['elk'][0] }}:5601' && touch /tmp/filebeat.setup
+  args:
+    creates: /tmp/filebeat.setup

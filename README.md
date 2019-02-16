@@ -45,9 +45,9 @@ The result if everything wents fine should be
 |:--- |:-- |:-- |:-- |
 |192.168.10.2|mon-1|running elk and metricbeat | 4096 MB RAM |
 |192.168.10.3|mon-2|running grafana, prometheus and metricbeat | 2048 MB RAM |
-|192.168.10.4|kafka-1|running a kafka broker and metricbeat | 2048 MB RAM |
-|192.168.10.5|kafka-2|running a kafka broker and metricbeat | 2048 MB RAM |
-|192.168.10.6|kafka-3|running a kafka broker and metricbeat | 2048 MB RAM |
+|192.168.10.4|kafka-1|running a zookeeper, kafka broker and metricbeat | 2048 MB RAM |
+|192.168.10.5|kafka-2|running a zookeeper, kafka broker and metricbeat | 2048 MB RAM |
+|192.168.10.6|kafka-3|running a zookeeper, kafka broker and metricbeat | 2048 MB RAM |
 
 
 ### Connections
@@ -91,7 +91,7 @@ The result if everything wents fine should be
 
 ```bash
 vagrant ssh kafka-1
-zkCli.sh -server kafka-1:2181/
+zookeeper-shell.sh kafka-1:2181/
 Connecting to kafka-1:2181/
 ...
 
@@ -111,10 +111,10 @@ WatchedEvent state:SyncConnected type:None path:null
 ```bash
 vagrant ssh kafka-1
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 1 --partitions 4 --topic sample
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 1 --partitions 4 --topic sample
 
 ```
 
@@ -123,7 +123,7 @@ Created topic "sample".
 ```
 
 ```bash
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
 ```
 
 ```bash
@@ -139,11 +139,11 @@ Topic:sample	PartitionCount:6	ReplicationFactor:2   Configs:
 ### ACL for producers and consumers
 
 ```bash
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group console --resource-pattern-type PREFIXED
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group console --resource-pattern-type PREFIXED
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
 
 ```
 

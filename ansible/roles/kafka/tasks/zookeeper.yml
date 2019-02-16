@@ -1,0 +1,44 @@
+---
+
+- name: copy {{ kafka_home }}/config/zookeeper.properties
+  become: yes
+  template:
+    src: templates/zookeeper.properties.j2
+    dest: "{{ kafka_home }}/config/zookeeper.properties"
+  notify: "restart zookeeper"
+
+- name: copy {{ kafka_home }}/config/zookeeper_server_jaas.conf
+  become: yes
+  template:
+    src: templates/zookeeper_server_jaas.conf.j2
+    dest: "{{ kafka_home }}/config/zookeeper_server_jaas.conf"
+  register: jaas_conf
+
+- name: create {{ zookeeper_data_dir }}
+  become: yes
+  file:
+    path: "{{ zookeeper_data_dir }}"
+    state: directory
+  notify: "restart zookeeper"
+
+- name: create myid in {{ zookeeper_data_dir }} for {{ groups.kafka.index(inventory_hostname) + 1 }}
+  become: yes
+  copy:
+    content: "{{ groups.kafka.index(inventory_hostname) + 1 }}"
+    dest: "{{ zookeeper_data_dir }}/myid"
+    force: yes
+  notify: "restart zookeeper"
+
+- name: copy zookeeper.environment {{ kafka_home }}/zookeeper.environment
+  become: yes
+  template:
+    src: templates/zookeeper.environment.j2
+    dest: "{{ kafka_home }}/zookeeper.environment"
+  notify: "restart zookeeper"
+
+- name: install zookeeper systemd unit file
+  become: yes
+  template:
+    src: templates/zookeeper.service.j2
+    dest: "{{ system_units }}/zookeeper.service"
+  notify: "restart zookeeper"

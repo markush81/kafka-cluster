@@ -1,5 +1,20 @@
 ---
 
+- name: restart zookeeper service
+  become: yes
+  systemd:
+    enabled: yes
+    state: restarted
+    name: zookeeper
+    daemon_reload: yes
+  listen: "restart zookeeper"
+
+- name: wait until zookeeper has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 2181
+  listen: "restart zookeeper"
+
 - name: restart kafka service
   become: yes
   systemd:

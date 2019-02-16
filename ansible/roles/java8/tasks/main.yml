@@ -5,12 +5,12 @@
     url: "{{ url }}"
     headers:
       Cookie: 'oraclelicense=accept-securebackup-cookie'
-    dest: "{{ download }}/{{ file }}"
+    dest: "/tmp/{{ file }}"
 
-- name: install {{ download }}/{{ file }}
+- name: install /tmp/{{ file }}
   become: yes
   yum:
-    name: "{{ download }}/{{ file }}"
+    name: "/tmp/{{ file }}"
     state: present
 
 - name: set JAVA_HOME=/usr/java/latest

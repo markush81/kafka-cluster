@@ -26,5 +26,6 @@
 
 - name: setup metricbeat
   become: yes
-  command: metricbeat setup  -E 'setup.kibana.host={{ groups['elk'][0] }}:5601'
-  run_once: true
+  shell: metricbeat setup  -E 'setup.kibana.host={{ groups['elk'][0] }}:5601' && touch /tmp/metricbeat.setup
+  args:
+    creates: /tmp/metricbeat.setup

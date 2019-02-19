@@ -20,6 +20,7 @@
     src: templates/zookeeper_client_jaas.conf.j2
     dest: "{{ kafka_home }}/config/zookeeper_client_jaas.conf"
   notify: "restart kafka"
+  when: secure|bool
 
 - name: download {{ prometheus_jmx }}
   become: yes
@@ -65,7 +66,7 @@
   become: yes
   template:
     src: templates/kafka.service.j2
-    dest: "{{ system_units }}/kafka.service"
+    dest: /etc/systemd/system/kafka.service
   notify: "restart kafka"
 
 - name: create {{ exchange }}/client-ssl.properties

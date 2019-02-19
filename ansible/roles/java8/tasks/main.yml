@@ -16,7 +16,7 @@
 - name: set JAVA_HOME=/usr/java/latest
   become: yes
   lineinfile:
-    dest: "{{ etc_profiles }}/java.sh"
+    dest: /etc/profile.d/java.sh
     create: yes
     state: present
     regexp: '^export JAVA_HOME'

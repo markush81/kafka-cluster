@@ -13,6 +13,10 @@ In case you need a local cluster providing Kafka (**with SSL and ACL**) includin
 * [Grafana 5.4.3](https://grafana.com)
 * [Prometheus 2.7.1](https://prometheus.io)
 
+## AWS Version
+
+see [AWS](AWS.md)
+
 ## Prerequisites
 
 * [Vagrant](https://www.vagrantup.com) (tested with 2.2.3)
@@ -114,7 +118,7 @@ vagrant ssh kafka-1
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-topics.sh --create --zookeeper kafka-1:2181 --replication-factor 1 --partitions 4 --topic sample
+KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --create --replication-factor 1 --partitions 4 --topic sample
 
 ```
 

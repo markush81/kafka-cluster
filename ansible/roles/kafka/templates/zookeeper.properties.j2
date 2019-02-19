@@ -31,6 +31,7 @@ clientPort=2181
 server.{{ loop.index }}={{ item }}:2888:3888
 {% endfor %}
 
+{% if secure|bool %}
 authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider
 requireClientAuthScheme=sasl
 jaasLoginRenew=3600000
@@ -41,3 +42,4 @@ quorum.auth.serverRequireSasl=true
 quorum.auth.learner.loginContext=QuorumLearner
 quorum.auth.server.loginContext=QuorumServer
 quorum.cnxn.threads.size=20
+{% endif %}

@@ -12,7 +12,7 @@
   template:
     src: templates/zookeeper_server_jaas.conf.j2
     dest: "{{ kafka_home }}/config/zookeeper_server_jaas.conf"
-  register: jaas_conf
+  when: secure|bool
 
 - name: create {{ zookeeper_data_dir }}
   become: yes
@@ -40,5 +40,5 @@
   become: yes
   template:
     src: templates/zookeeper.service.j2
-    dest: "{{ system_units }}/zookeeper.service"
+    dest: /etc/systemd/system/zookeeper.service
   notify: "restart zookeeper"

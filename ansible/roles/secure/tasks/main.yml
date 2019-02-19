@@ -7,6 +7,7 @@
   with_items:
     - "{{ ssl_client_dir }}"
     - "{{ ssl_ca_dir }}"
+  when: secure|bool
 
 - name: generate keystores
   become: true
@@ -16,6 +17,7 @@
   with_items:
     - { keystore: /usr/local/server.keystore.jks }
     - { keystore: "{{ ssl_client_dir }}/client.keystore.jks" }
+  when: secure|bool
 
 - name: create CA
   become: true
@@ -24,6 +26,7 @@
     creates: "{{ ssl_ca_dir }}/ca-cert"
     #creates: "{{ ssl_ca_dir }}/ca-key"
   run_once: true
+  when: secure|bool
 
 - name: import CA into truststores
   become: true
@@ -37,6 +40,7 @@
   with_items:
    - "/usr/local/server.truststore.jks"
    - "{{ ssl_client_dir }}/client.truststore.jks"
+  when: secure|bool
 
 - name: create CSR
   become: true
@@ -46,6 +50,7 @@
   with_items:
     - { keystore: "/usr/local/server.keystore.jks", cert_csr: "/tmp/cert-csr" }
     - { keystore: "{{ ssl_client_dir }}/client.keystore.jks", cert_csr: "{{ ssl_client_dir }}/cert-csr" }
+  when: secure|bool
 
 - name: create SAN conf for signing
   lineinfile:
@@ -53,6 +58,7 @@
     path: /tmp/san.conf
     line: 'subjectAltName=DNS:{{ inventory_hostname }}'
     state: present
+  when: secure|bool
 
 - name: sign certificates
   become: true
@@ -63,6 +69,7 @@
     - { cert_csr: /tmp/cert-csr, cert_file_signed: /tmp/cert-signed}
     - { cert_csr: "{{ ssl_client_dir }}/cert-csr" , cert_file_signed: "{{ ssl_client_dir }}/cert-signed" }
   register: signed
+  when: secure|bool
 
 - name: import signed certificates into keystores
   become: true
@@ -72,7 +79,7 @@
    - { alias: localhost, path: "/tmp/cert-signed", keystore:  "/usr/local/server.keystore.jks" }
    - { alias: CARoot, path: "{{ ssl_ca_dir }}/ca-cert", keystore: "{{ ssl_client_dir }}/client.keystore.jks" }
    - { alias: localhost, path: "{{ ssl_client_dir }}/cert-signed", keystore:  "{{ ssl_client_dir }}/client.keystore.jks" }
-  when: signed.changed
+  when: secure|bool and signed.changed
   ignore_errors: true #client store already done with first host
 
 - name: export client private key
@@ -80,9 +87,11 @@
   shell: "keytool -v -importkeystore -srckeystore {{ ssl_client_dir }}/client.keystore.jks -srcalias localhost -destkeystore {{ ssl_client_dir }}/localhost.p12 -deststoretype PKCS12 -srcstorepass {{ keystore_pwd }} -deststorepass {{ keystore_pwd }} -srckeypass {{ key_pwd }} -destkeypass {{ key_pwd }}"
   args:
     creates: "{{ ssl_client_dir }}/localhost.p12"
+  when: secure|bool
 
 - name: transform client private key
   become: true
   shell: "openssl pkcs12 -in {{ ssl_client_dir }}/localhost.p12 -nocerts -nodes -passin pass:{{ keystore_pwd }} -out {{ ssl_client_dir }}/client-key"
   args:
     creates: "{{ ssl_client_dir }}/client-key"
+  when: secure|bool

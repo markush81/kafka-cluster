@@ -9,7 +9,7 @@
   become: yes
   unarchive:
     src: "/tmp/{{ file }}"
-    dest: "{{ usr_local }}"
+    dest: /usr/local
     copy: no
     creates: "{{ prometheus_home }}"
   notify: restart prometheus
@@ -33,5 +33,5 @@
   become: yes
   template:
     src: templates/prometheus.service.j2
-    dest: "{{ system_units }}/prometheus.service"
+    dest: /etc/systemd/system/prometheus.service
   notify: restart prometheus

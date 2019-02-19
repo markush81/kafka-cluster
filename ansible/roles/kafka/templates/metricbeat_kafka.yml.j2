@@ -3,8 +3,12 @@
     - partition
     - consumergroup
   period: 10s
+{% if secure|bool %}
   hosts: ["{{ inventory_hostname }}:9093"]
   ssl.certificate_authorities: ["{{ ssl_ca_dir }}/ca-cert"]
   ssl.certificate: "{{ ssl_client_dir }}/cert-signed"
   ssl.key: "{{ ssl_client_dir }}/client-key"
   ssl.key_passphrase: "{{ key_pwd }}"
+{% else %}
+  hosts: ["{{ inventory_hostname }}:9092"]
+{% endif %}

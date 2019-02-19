@@ -34,12 +34,20 @@ auto.create.topics.enable=false
 #     listeners = listener_name://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
+{% if secure|bool %}
 listeners=SSL://0.0.0.0:9093
+{% else %}
+listeners=PLAINTEXT://0.0.0.0:9092
+{% endif %}
 
 # Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
+{% if secure|bool %}
 advertised.listeners=SSL://{{ inventory_hostname }}:9093
+{% else %}
+advertised.listeners=PLAINTEXT://{{ inventory_hostname }}:9092
+{% endif %}
 
 # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
 #listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
@@ -114,6 +122,7 @@ log.retention.check.interval.ms=300000
 
 ############################# Authentication and SSL ###########################
 
+{% if secure|bool %}
 ssl.truststore.location=/usr/local/server.truststore.jks
 ssl.truststore.password={{ truststore_pwd }}
 ssl.keystore.location=/usr/local/server.keystore.jks
@@ -131,6 +140,9 @@ zookeeper.set.acl=true
 authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
 allow.everyone.if.no.acl.found=false
 #super.users=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+{% else %}
+security.inter.broker.protocol=PLAINTEXT
+{% endif %}
 
 ############################# Zookeeper #############################
 

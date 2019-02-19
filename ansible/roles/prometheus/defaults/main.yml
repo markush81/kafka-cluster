@@ -4,4 +4,4 @@ version: 2.7.1
 prometheus: prometheus-{{ version }}.linux-amd64
 file: "{{ prometheus }}.tar.gz"
 url: https://github.com/prometheus/prometheus/releases/download/v{{ version }}/{{ file }}
-prometheus_home: "{{ usr_local }}/{{ prometheus }}"
+prometheus_home: /usr/local/{{ prometheus }}

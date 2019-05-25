@@ -18,7 +18,8 @@
     dest: /etc/metricbeat/metricbeat.yml
   notify: restart metricbeat
 
-- meta: flush_handlers
+- name: flush all handlers
+  meta: flush_handlers
 
 - name: metricbeat modules enable system
   become: yes

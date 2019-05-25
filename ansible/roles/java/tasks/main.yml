@@ -1,0 +1,7 @@
+---
+
+- name: install {{ java_package }}
+  become: yes
+  yum:
+    name: "{{ java_package }}"
+    state: present

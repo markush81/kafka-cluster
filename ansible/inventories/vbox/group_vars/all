@@ -4,6 +4,6 @@ secure: true
 ssl_ca_dir: "{{ exchange }}/ssl"
 ssl_client_dir: "{{ exchange }}/ssl-client"
 keystore_pwd: keystore-secret
-key_pwd: key-secret
+key_pwd: "{{ keystore_pwd }}"
 truststore_pwd: truststore-secret
 ca_pwd: ca-secret

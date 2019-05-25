@@ -3,7 +3,6 @@ Description=Prometheus Service
 After=network-online.target
 
 [Service]
-#Environment=JAVA_HOME=/usr/java/latest
 User=vagrant
 ExecStart={{ prometheus_home }}/prometheus --config.file={{ prometheus_home }}/prometheus.yml --storage.tsdb.path={{ prometheus_home }}/data
 Restart=on-failure

@@ -2,30 +2,29 @@
   remote_user: vagrant
   serial: 100%
   roles:
-  - java8
-  - elasticsearch
-  - logstash
-  - kibana
-  - metricbeat
+    - java
+    - elasticsearch
+    - kibana
+    - metricbeat
 
 - hosts: prometheus
   remote_user: vagrant
   serial: 100%
   roles:
-  - metricbeat
-  - prometheus
+    - metricbeat
+    - prometheus
 
 - hosts: grafana
   remote_user: vagrant
   serial: 100%
   roles:
-  - grafana
+    - grafana
 
 - hosts: kafka
   remote_user: vagrant
   serial: 33%
   roles:
-    - java8
+    - java
     - metricbeat
     - filebeat
     - secure

@@ -13,7 +13,7 @@ Adapt [ansible/inventories/aws/hosts](ansible/inventories/aws/hosts) according t
 ```bash
 cd ansible
 
- ansible-playbook -i inventories/aws/ cluster.yml
+ansible-playbook -i inventories/aws/ cluster.yml
 ```
 
 ### Connections

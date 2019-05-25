@@ -29,13 +29,13 @@ Vagrant.configure("2") do |config|
     end
     mon.vm.network :private_network, ip: "192.168.10.2", auto_config: true
 
-    #mon.vm.provision :ansible do |ansible|
-    #  ansible.compatibility_mode = "2.0"
-    #  ansible.limit = "elk"
-    #  ansible.playbook = "ansible/cluster.yml"
-    #  ansible.inventory_path = "ansible/inventories/vbox"
-    #  ansible.raw_arguments  = ["-vv"]
-    #end
+    mon.vm.provision :ansible do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.limit = "elk"
+      ansible.playbook = "ansible/cluster.yml"
+      ansible.inventory_path = "ansible/inventories/vbox"
+      ansible.raw_arguments  = ["-vv"]
+    end
   end
 
   config.vm.define "mon-2" do |mon|
@@ -46,23 +46,23 @@ Vagrant.configure("2") do |config|
     end
     mon.vm.network :private_network, ip: "192.168.10.3", auto_config: true
 
-    #mon.vm.provision :ansible do |ansible|
-    #  ansible.compatibility_mode = "2.0"
-    #  ansible.limit = "mon"
-    #  ansible.playbook = "ansible/network.yml"
-    #  ansible.inventory_path = "ansible/inventories/vbox"
-    #  ansible.raw_arguments  = [
-    #    "-vv"
-    #  ]
-    #end
+    mon.vm.provision :ansible do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.limit = "mon"
+      ansible.playbook = "ansible/network.yml"
+      ansible.inventory_path = "ansible/inventories/vbox"
+      ansible.raw_arguments  = [
+        "-vv"
+      ]
+    end
 
-    #mon.vm.provision :ansible do |ansible|
-    #  ansible.compatibility_mode = "2.0"
-    #  ansible.limit = "grafana"
-    #  ansible.playbook = "ansible/cluster.yml"
-    #  ansible.inventory_path = "ansible/inventories/vbox"
-    #  ansible.raw_arguments  = ["-vv"]
-    #end
+    mon.vm.provision :ansible do |ansible|
+      ansible.compatibility_mode = "2.0"
+      ansible.limit = "grafana"
+      ansible.playbook = "ansible/cluster.yml"
+      ansible.inventory_path = "ansible/inventories/vbox"
+      ansible.raw_arguments  = ["-vv"]
+    end
   end
 
   (1..KAFKA).each do |i|
@@ -86,15 +86,15 @@ Vagrant.configure("2") do |config|
           ]
         end
 
-        #kafka.vm.provision :ansible do |ansible|
-        #  ansible.compatibility_mode = "2.0"
-        #  ansible.limit = "kafka"
-        #  ansible.playbook = "ansible/cluster.yml"
-        #  ansible.inventory_path = "ansible/inventories/vbox"
-        #  ansible.raw_arguments  = [
-        #    "-vv"
-        #  ]
-        #end
+        kafka.vm.provision :ansible do |ansible|
+          ansible.compatibility_mode = "2.0"
+          ansible.limit = "kafka"
+          ansible.playbook = "ansible/cluster.yml"
+          ansible.inventory_path = "ansible/inventories/vbox"
+          ansible.raw_arguments  = [
+            "-vv"
+          ]
+        end
       end
     end
   end

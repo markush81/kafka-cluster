@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
     system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
   end
 
-  config.vm.box = "markush81/centos7-vbox-guestadditions"
+  config.vm.box = "markush81/centos8-vbox-guestadditions"
   config.vm.box_check_update = true
 
   config.vm.synced_folder "exchange", "/home/vagrant/exchange", create: true

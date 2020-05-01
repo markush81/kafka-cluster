@@ -70,10 +70,10 @@
   notify: "restart kafka"
 
 - name: create {{ exchange }}/client-ssl.properties
-  become: yes
   template:
     src: templates/client-ssl.properties.j2
-    dest: "{{ ssl_client_dir }}/client-ssl.properties"
+    dest: "{{ playbook_dir }}/../{{ ssl_exchange }}/client-ssl.properties"
+  delegate_to: localhost
   when: secure|bool
 
 - meta: flush_handlers

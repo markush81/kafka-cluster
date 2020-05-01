@@ -1,8 +1,7 @@
-exchange: /vagrant/exchange
-
 secure: true
-ssl_ca_dir: "{{ exchange }}/ssl"
-ssl_client_dir: "{{ exchange }}/ssl-client"
+ssl_ca_dir: "/vagrant/exchange/ssl"
+ssl_exchange: "exchange/ssl-client"
+ssl_client_dir: "/vagrant/{{ ssl_exchange }}"
 keystore_pwd: keystore-secret
 key_pwd: "{{ keystore_pwd }}"
 truststore_pwd: truststore-secret

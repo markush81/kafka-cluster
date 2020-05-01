@@ -1,6 +1,6 @@
 {% if secure|bool %}
-KAFKA_OPTS=-Djava.security.auth.login.config={{ kafka_home }}/config/zookeeper_client_jaas.conf -javaagent:{{ kafka_home }}/prometheus-agent.jar=8080:{{ kafka_home }}/config/prometheus_agent.yml
+KAFKA_OPTS=-Djava.security.auth.login.config={{ kafka_home }}/config/zookeeper_client_jaas.conf -javaagent:{{ kafka_home }}/prometheus-agent.jar=9090:{{ kafka_home }}/config/prometheus_agent.yml
 {% else %}
-KAFKA_OPTS=-javaagent:{{ kafka_home }}/prometheus-agent.jar=8080:{{ kafka_home }}/config/prometheus_agent.yml
+KAFKA_OPTS=-javaagent:{{ kafka_home }}/prometheus-agent.jar=9090:{{ kafka_home }}/config/prometheus_agent.yml
 {% endif %}
 JMX_PORT=5555

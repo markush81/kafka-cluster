@@ -25,4 +25,4 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
-      - targets: [{% for item in groups['kafka'] %}"{{ item }}:8080",{% endfor %}]
+      - targets: [{% for item in groups['kafka'] %}"{{ item }}:9090",{% endfor %}]

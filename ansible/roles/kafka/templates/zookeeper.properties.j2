@@ -10,8 +10,6 @@ syncLimit=5
 # do not use /tmp for storage, /tmp here is just
 # example sakes.
 dataDir={{ zookeeper_data_dir }}
-# the port at which the clients will connect
-clientPort=2181
 # the maximum number of client connections.
 # increase this if you need to handle more clients
 #maxClientCnxns=60
@@ -32,14 +30,15 @@ server.{{ loop.index }}={{ item }}:2888:3888
 {% endfor %}
 
 {% if secure|bool %}
-authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider
-requireClientAuthScheme=sasl
-jaasLoginRenew=3600000
-
-quorum.auth.enableSasl=true
-quorum.auth.learnerRequireSasl=true
-quorum.auth.serverRequireSasl=true
-quorum.auth.learner.loginContext=QuorumLearner
-quorum.auth.server.loginContext=QuorumServer
-quorum.cnxn.threads.size=20
+# the port at which the clients will connect
+secureClientPort=2182
+serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory
+authProvider.x509=org.apache.zookeeper.server.auth.X509AuthenticationProvider
+ssl.keyStore.location=/usr/local/server.keystore.jks
+ssl.keyStore.password={{ keystore_pwd }}
+ssl.trustStore.location=/usr/local/server.truststore.jks
+ssl.trustStore.password={{ truststore_pwd }}
+{% else %}
+# the port at which the clients will connect
+clientPort=2181
 {% endif %}

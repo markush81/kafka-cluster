@@ -7,13 +7,6 @@
     dest: "{{ kafka_home }}/config/zookeeper.properties"
   notify: "restart zookeeper"
 
-- name: copy {{ kafka_home }}/config/zookeeper_server_jaas.conf
-  become: yes
-  template:
-    src: templates/zookeeper_server_jaas.conf.j2
-    dest: "{{ kafka_home }}/config/zookeeper_server_jaas.conf"
-  when: secure|bool
-
 - name: create {{ zookeeper_data_dir }}
   become: yes
   file:

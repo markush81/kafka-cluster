@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "markush81/centos8-vbox-guestadditions"
   config.vm.box_check_update = true
 
-  config.vm.synced_folder "exchange", "/home/vagrant/exchange", create: true
+  config.vm.synced_folder "exchange", "/home/vagrant/exchange", create: true, SharedFoldersEnableSymlinksCreate: true
 
   config.trigger.after :destroy do |trigger|
     trigger.run = { inline: 'rm -rf exchange/ssl && rm -rf exchange/ssl-client'}

@@ -14,6 +14,14 @@
     host: "{{ inventory_hostname }}"
     port: 2181
   listen: "restart zookeeper"
+  when: not secure|bool 
+
+- name: wait until zookeeper SSL has started
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 2182
+  listen: "restart zookeeper"
+  when: secure|bool   
 
 - name: restart kafka service
   become: yes

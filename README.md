@@ -4,13 +4,13 @@
 
 In case you need a local cluster providing Kafka (**with SSL and ACL**) including a monitoring suite.
 
-* [Apache Kafka 2.5.0](http://kafka.apache.org/25/documentation.html)
-* [Elasticsearch 7.4.1](https://www.elastic.co/guide/en/elasticsearch/reference/7.6/index.html)
-* [Kibana 7.6.2](https://www.elastic.co/guide/en/kibana/7.6/index.html)
-* [Filebeat 7.6.2](https://www.elastic.co/guide/en/beats/filebeat/7.6/index.html)
-* [Metricbeat 7.6.2](https://www.elastic.co/guide/en/beats/metricbeat/7.6/index.html)
-* [Grafana 6.7.3](https://grafana.com)
-* [Prometheus 2.17.2](https://prometheus.io)
+* [Apache Kafka 2.7.0](http://kafka.apache.org/27/documentation.html)
+* [Elasticsearch 7.10.2](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/index.html)
+* [Kibana 7.10.2](https://www.elastic.co/guide/en/kibana/7.10/index.html)
+* [Filebeat 7.10.2](https://www.elastic.co/guide/en/beats/filebeat/7.10/index.html)
+* [Metricbeat 7.10.2](https://www.elastic.co/guide/en/beats/metricbeat/7.10/index.html)
+* [Grafana 7.3.7](https://grafana.com)
+* [Prometheus 2.24.1](https://prometheus.io)
 
 ## AWS Version
 
@@ -18,9 +18,9 @@ see [AWS](AWS.md)
 
 ## Prerequisites
 
-* [Vagrant](https://www.vagrantup.com) (tested with 2.2.7)
-* [VirtualBox](http://virtualbox.org) (tested with 6.1.6)
-* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.9.7)
+* [Vagrant](https://www.vagrantup.com) (tested with 2.2.14)
+* [VirtualBox](http://virtualbox.org) (tested with 6.1.18)
+* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.10.5)
 * The VMs take approx 15 GB of RAM, so you should have more than that.
 
 
@@ -55,9 +55,9 @@ The result if everything wents fine should be
 
 ### Connections
 
-| Name |  |
+| Name | |
 |:-- |:-- |
-|Zookeeper|kafka-1:2181,kafka-2:2181,kafka-3:2181|
+|Zookeeper|kafka-1:2182,kafka-2:2182,kafka-3:2182|
 |Kafka Brokers|kafka-1:9093,kafka-2:9093,kafka-3:9093|
 |Kibana|[http://mon-1:5601](http://mon-1:5601)|
 |Elasticsearch|[http://mon-1:9200](http://mon-1:9200)|
@@ -94,16 +94,18 @@ The result if everything wents fine should be
 
 ```bash
 vagrant ssh kafka-1
-zookeeper-shell.sh kafka-1:2181/
-Connecting to kafka-1:2181/
+
+zookeeper-shell.sh -zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties kafka-1:2182/
+
+Connecting to kafka-1:2182/
 ...
 
 WATCHER::
 
 WatchedEvent state:SyncConnected type:None path:null
-[zk: zookeeper-1:2181,zookeeper-3:2181(CONNECTED) 0] ls /
+[zk: zookeeper-1:2182,zookeeper-3:2182(CONNECTED) 0] ls /
 [cluster, controller, controller_epoch, brokers, zookeeper, admin, isr_change_notification, consumers, config]
-[zk: zookeeper-1:2181,zookeeper-3:2181(CONNECTED) 1]
+[zk: zookeeper-1:2182,zookeeper-3:2182(CONNECTED) 1]
 
 ```
 
@@ -114,10 +116,17 @@ WatchedEvent state:SyncConnected type:None path:null
 ```bash
 vagrant ssh kafka-1
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --add --operation Create --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --create --replication-factor 1 --partitions 4 --topic sample
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --add --operation Create --topic '*' --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --add --operation Describe --topic '*' --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --add --operation DescribeConfigs --topic '*' --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+```
+
+```bash
+kafka-topics.sh --command-config /vagrant/exchange/ssl-client/client-broker-ssl.properties --bootstrap-server kafka-1:9093 --create --replication-factor 1 --partitions 4 --topic sample
 
 ```
 
@@ -126,52 +135,61 @@ Created topic "sample".
 ```
 
 ```bash
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-topics.sh --zookeeper kafka-1:2181 --topic sample --describe
+kafka-topics.sh --command-config /vagrant/exchange/ssl-client/client-broker-ssl.properties --bootstrap-server kafka-1:9093 --topic sample --describe
 ```
 
 ```bash
-Topic:sample	PartitionCount:6	ReplicationFactor:2   Configs:
-	Topic: sample	Partition: 0	Leader: 1	Replicas: 1,2   Isr: 1,2
-	Topic: sample	Partition: 1	Leader: 2	Replicas: 2,3   Isr: 2,3
-	Topic: sample	Partition: 2	Leader: 3	Replicas: 3,1   Isr: 3,1
-	Topic: sample	Partition: 3	Leader: 1	Replicas: 1,3   Isr: 1,3
-	Topic: sample	Partition: 4	Leader: 2	Replicas: 2,1   Isr: 2,1
-	Topic: sample	Partition: 5	Leader: 3	Replicas: 3,2   Isr: 3,2
+Topic: sample	PartitionCount: 4	ReplicationFactor: 1	Configs: flush.ms=1000,segment.bytes=1073741824
+	Topic: sample	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
+	Topic: sample	Partition: 1	Leader: 2	Replicas: 2	Isr: 2
+	Topic: sample	Partition: 2	Leader: 1	Replicas: 1	Isr: 1
+	Topic: sample	Partition: 3	Leader: 0	Replicas: 0	Isr: 0
 ```
 
 ### ACL for producers and consumers
 
 ```bash
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --add --producer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group console --resource-pattern-type PREFIXED
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --add --consumer --topic sample --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE  --group console --resource-pattern-type PREFIXED
+```
 
-KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --list
+```bash
+kafka-acls.sh --zk-tls-config-file /vagrant/exchange/ssl-client/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect=kafka-1:2182 --list
 
 ```
 
 ```bash
-Current ACLs for resource `Cluster:LITERAL:kafka-cluster`:
- 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Create from hosts: *
-	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Describe from hosts: *
+Current ACLs for resource `ResourcePattern(resourceType=GROUP, name=console, patternType=PREFIXED)`:
+ 	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=READ, permissionType=ALLOW)
 
-Current ACLs for resource `Group:PREFIXED:console`:
- 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Read from hosts: *
+Current ACLs for resource `ResourcePattern(resourceType=CLUSTER, name=kafka-cluster, patternType=LITERAL)`:
+ 	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=CLUSTER_ACTION, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=DESCRIBE, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=CREATE, permissionType=ALLOW)
 
-Current ACLs for resource `Topic:LITERAL:sample`:
- 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Create from hosts: *
-	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Describe from hosts: *
-	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Write from hosts: *
+Current ACLs for resource `ResourcePattern(resourceType=TOPIC, name=*, patternType=LITERAL)`:
+ 	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=CREATE, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=DESCRIBE, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=DESCRIBE_CONFIGS, permissionType=ALLOW)
 
-Current ACLs for resource `Topic:PREFIXED:sample`:
- 	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Describe from hosts: *
-	User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE has Allow permission for operations: Read from hosts: * ```
+Current ACLs for resource `ResourcePattern(resourceType=TOPIC, name=__consumer_offsets, patternType=LITERAL)`:
+ 	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=DESCRIBE, permissionType=ALLOW)
+
+Current ACLs for resource `ResourcePattern(resourceType=TOPIC, name=sample, patternType=PREFIXED)`:
+ 	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=DESCRIBE, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=READ, permissionType=ALLOW)
+
+Current ACLs for resource `ResourcePattern(resourceType=TOPIC, name=sample, patternType=LITERAL)`:
+ 	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=WRITE, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=CREATE, permissionType=ALLOW)
+	(principal=User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE, host=*, operation=DESCRIBE, permissionType=ALLOW)
 ```
 
 ### Producer
 
 ```bash
-kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --topic sample
+kafka-console-producer.sh --broker-list kafka-1:9093,kafka-3:9093 --producer.config /vagrant/exchange/ssl-client/client-broker-ssl.properties --topic sample
 
 Hey, is Kafka up and running?
 ```
@@ -179,7 +197,7 @@ Hey, is Kafka up and running?
 ### Consumer
 
 ```bash
-kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-ssl.properties  --group console-1 --topic sample --from-beginning
+kafka-console-consumer.sh --bootstrap-server kafka-1:9093,kafka-3:9093 --consumer.config /vagrant/exchange/ssl-client/client-broker-ssl.properties  --group console-1 --topic sample --from-beginning
 
 Hey, is Kafka up and running?
 ```
@@ -187,6 +205,6 @@ Hey, is Kafka up and running?
 ### Producer Perf Test
 
 ```bash
-kafka-producer-perf-test.sh --producer.config /vagrant/exchange/ssl-client/client-ssl.properties --producer-props bootstrap.servers="kafka-1:9093,kafka-2:9093,kafka-3:9093" --topic sample --num-records 2000 --throughput 100 --record-size 256
+kafka-producer-perf-test.sh --producer.config /vagrant/exchange/ssl-client/client-broker-ssl.properties --producer-props bootstrap.servers="kafka-1:9093,kafka-2:9093,kafka-3:9093" --topic sample --num-records 2000 --throughput 100 --record-size 256
 
 ```

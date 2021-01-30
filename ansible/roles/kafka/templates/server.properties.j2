@@ -127,15 +127,13 @@ ssl.truststore.location=/usr/local/server.truststore.jks
 ssl.truststore.password={{ truststore_pwd }}
 ssl.keystore.location=/usr/local/server.keystore.jks
 ssl.keystore.password={{ keystore_pwd }}
-ssl.key.password={{ key_pwd }}
+ssl.key.password={{ key_pwd }}
 
 security.inter.broker.protocol=SSL
 
 ssl.endpoint.identification.algorithm=HTTPS
 ssl.client.auth=required
 ssl.enabled.protocols=TLSv1.2
-
-zookeeper.set.acl=true
 
 authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
 allow.everyone.if.no.acl.found=false
@@ -151,7 +149,20 @@ security.inter.broker.protocol=PLAINTEXT
 # server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".
 # You can also append an optional chroot string to the urls to specify the
 # root directory for all kafka znodes.
+
+{% if secure|bool %}
+zookeeper.connect={% for server in groups['zookeeper'] %}{% if loop.index > 1%},{% endif %}{{ server }}:2182{% endfor %}
+
+zookeeper.ssl.client.enable=true
+zookeeper.clientCnxnSocket=org.apache.zookeeper.ClientCnxnSocketNetty
+zookeeper.ssl.keystore.location=/usr/local/server.keystore.jks
+zookeeper.ssl.keystore.password={{ keystore_pwd }}
+zookeeper.ssl.truststore.location=/usr/local/server.truststore.jks
+zookeeper.ssl.truststore.password={{ truststore_pwd }}
+zookeeper.set.acl=true
+{% else %}
 zookeeper.connect={% for server in groups['zookeeper'] %}{% if loop.index > 1%},{% endif %}{{ server }}:2181{% endfor %}
+{% endif %}
 
 # Timeout in ms for connecting to zookeeper
 zookeeper.connection.timeout.ms=6000

@@ -14,14 +14,6 @@
     dest: "{{ kafka_home }}/kafka.environment"
   notify: "restart kafka"
 
-- name: copy zookeeper_client_jaas.conf {{ kafka_home }}/config/zookeeper_client_jaas.conf
-  become: yes
-  template:
-    src: templates/zookeeper_client_jaas.conf.j2
-    dest: "{{ kafka_home }}/config/zookeeper_client_jaas.conf"
-  notify: "restart kafka"
-  when: secure|bool
-
 - name: download {{ prometheus_jmx }}
   become: yes
   get_url:
@@ -69,23 +61,30 @@
     dest: /etc/systemd/system/kafka.service
   notify: "restart kafka"
 
-- name: create {{ exchange }}/client-ssl.properties
+- name: create {{ playbook_dir }}/../{{ ssl_exchange }}/client-broker-ssl.properties
   template:
-    src: templates/client-ssl.properties.j2
-    dest: "{{ playbook_dir }}/../{{ ssl_exchange }}/client-ssl.properties"
+    src: templates/client-broker-ssl.properties.j2
+    dest: "{{ playbook_dir }}/../{{ ssl_exchange }}/client-broker-ssl.properties"
   delegate_to: localhost
   when: secure|bool
+
+- name: create {{ playbook_dir }}/../{{ ssl_exchange }}/client-zookeeper-ssl.properties
+  template:
+    src: templates/client-zookeeper-ssl.properties.j2
+    dest: "{{ playbook_dir }}/../{{ ssl_exchange }}/client-zookeeper-ssl.properties"
+  delegate_to: localhost
+  when: secure|bool  
 
 - meta: flush_handlers
 
 - name: allow ClusterAction
-  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
+  shell: "kafka-acls.sh --zk-tls-config-file {{ ssl_client_dir }}/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect={{ groups['zookeeper'][0] }}:2182 --add --operation ClusterAction --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
   when: secure|bool and groups.kafka.index(inventory_hostname) == groups.kafka|length - 1
 
 - name: allow Describe cluster
-  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
+  shell: "kafka-acls.sh --zk-tls-config-file {{ ssl_client_dir }}/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect={{ groups['zookeeper'][0] }}:2182 --add --operation Describe --cluster --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
   when: secure|bool and groups.kafka.index(inventory_hostname) == groups.kafka|length - 1
 
 - name: allow Describe __consumer_offsets
-  shell: "KAFKA_OPTS=-Djava.security.auth.login.config=/usr/local/kafka/config/zookeeper_client_jaas.conf /usr/local/kafka/bin/kafka-acls.sh --authorizer-properties zookeeper.connect=localhost:2181 --add --operation Describe --topic __consumer_offsets --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
+  shell: "kafka-acls.sh --zk-tls-config-file {{ ssl_client_dir }}/client-zookeeper-ssl.properties --authorizer-properties zookeeper.connect={{ groups['zookeeper'][0] }}:2182 --add --operation Describe --topic __consumer_offsets --allow-principal User:CN=kafka,OU=org,O=org,L=home,ST=Bavaria,C=DE"
   when: secure|bool and groups.kafka.index(inventory_hostname) == groups.kafka|length - 1

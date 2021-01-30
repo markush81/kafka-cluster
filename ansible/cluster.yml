@@ -29,3 +29,15 @@
     - filebeat
     - secure
     - kafka
+
+- hosts: kafka
+  remote_user: vagrant
+  serial: 33%
+  tasks:
+    - name: restart
+      become: yes
+      systemd:
+        enabled: yes
+        state: restarted
+        name: kafka
+        daemon_reload: yes

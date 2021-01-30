@@ -18,7 +18,7 @@ ansible-playbook -i inventories/aws/ cluster.yml
 
 ### Connections
 
-| Name |  |
+| Name | |
 |:-- |:-- |
 |Kafka Brokers|kafka-1:9092,kafka-2:9092,kafka-3:9092|
 

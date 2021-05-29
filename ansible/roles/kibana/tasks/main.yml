@@ -6,7 +6,7 @@
 - name: install kibana
   become: yes
   yum:
-    name: kibana-{{ version }}
+    name: kibana-{{ version }}
     state: present
     update_cache: yes
   notify: "restart kibana"
@@ -20,6 +20,10 @@
 
 - name: run handlers
   meta: flush_handlers
+
+- name: metricbeat modules enable kibana-xpack
+  become: yes
+  command: metricbeat modules enable kibana-xpack
 
 - name: wait until kibana api is reachable
   uri:

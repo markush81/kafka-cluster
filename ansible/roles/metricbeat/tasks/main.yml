@@ -6,7 +6,7 @@
 - name: install metricbeat
   become: yes
   yum:
-    name: metricbeat-{{ version }}
+    name: metricbeat-{{ version }}
     state: present
     update_cache: yes
   notify: restart metricbeat
@@ -24,6 +24,10 @@
 - name: metricbeat modules enable system
   become: yes
   command: metricbeat modules enable system
+
+- name: metricbeat modules enable beat-xpack
+  become: yes
+  command: metricbeat modules enable beat-xpack
 
 - name: setup metricbeat
   become: yes

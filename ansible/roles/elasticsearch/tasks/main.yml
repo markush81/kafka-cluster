@@ -6,7 +6,7 @@
 - name: install elasticsearch
   become: yes
   yum:
-    name: elasticsearch-{{ version }}
+    name: elasticsearch-{{ version }}
     state: present
     update_cache: yes
   notify: "restart elasticsearch"
@@ -17,3 +17,7 @@
     src: templates/elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
   notify: "restart elasticsearch"
+
+- name: metricbeat modules enable elasticsearch-xpack
+  become: yes
+  command: metricbeat modules enable elasticsearch-xpack

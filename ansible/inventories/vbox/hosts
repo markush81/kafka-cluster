@@ -1,13 +1,13 @@
 [elk]
-mon-1
+mon-1 ansible_ssh_private_key_file=.vagrant/machines/mon-1/virtualbox/private_key
 
 [grafana]
-mon-2
+mon-2 ansible_ssh_private_key_file=.vagrant/machines/mon-2/virtualbox/private_key
 
 [zookeeper]
-kafka-1
-kafka-2
-kafka-3
+kafka-1 ansible_ssh_private_key_file=.vagrant/machines/kafka-1/virtualbox/private_key
+kafka-2 ansible_ssh_private_key_file=.vagrant/machines/kafka-2/virtualbox/private_key
+kafka-3 ansible_ssh_private_key_file=.vagrant/machines/kafka-3/virtualbox/private_key
 
 [prometheus:children]
 grafana

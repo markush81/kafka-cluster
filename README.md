@@ -4,13 +4,13 @@
 
 In case you need a local cluster providing Kafka (**with SSL and ACL**) including a monitoring suite.
 
-* [Apache Kafka 2.7.0](http://kafka.apache.org/27/documentation.html)
-* [Elasticsearch 7.10.2](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/index.html)
-* [Kibana 7.10.2](https://www.elastic.co/guide/en/kibana/7.10/index.html)
-* [Filebeat 7.10.2](https://www.elastic.co/guide/en/beats/filebeat/7.10/index.html)
-* [Metricbeat 7.10.2](https://www.elastic.co/guide/en/beats/metricbeat/7.10/index.html)
-* [Grafana 7.3.7](https://grafana.com)
-* [Prometheus 2.24.1](https://prometheus.io)
+* [Apache Kafka 2.8.0](http://kafka.apache.org/27/documentation.html)
+* [Elasticsearch 7.13.0](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/index.html)
+* [Kibana 7.13.0](https://www.elastic.co/guide/en/kibana/7.10/index.html)
+* [Filebeat 7.13.0](https://www.elastic.co/guide/en/beats/filebeat/7.10/index.html)
+* [Metricbeat 7.13.0](https://www.elastic.co/guide/en/beats/metricbeat/7.10/index.html)
+* [Grafana 7.5.7](https://grafana.com)
+* [Prometheus 2.27.1](https://prometheus.io)
 
 ## AWS Version
 
@@ -18,9 +18,9 @@ see [AWS](AWS.md)
 
 ## Prerequisites
 
-* [Vagrant](https://www.vagrantup.com) (tested with 2.2.14)
-* [VirtualBox](http://virtualbox.org) (tested with 6.1.18)
-* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 2.10.5)
+* [Vagrant](https://www.vagrantup.com) (tested with 2.2.16)
+* [VirtualBox](http://virtualbox.org) (tested with 6.1.22)
+* [Ansible](http://docs.ansible.com/ansible/index.html) (tested with 4.0.0)
 * The VMs take approx 15 GB of RAM, so you should have more than that.
 
 

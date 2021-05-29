@@ -1,6 +1,6 @@
 ---
 
-version: 2.24.1
+version: 2.27.1
 prometheus: prometheus-{{ version }}.linux-amd64
 file: "{{ prometheus }}.tar.gz"
 url: https://github.com/prometheus/prometheus/releases/download/v{{ version }}/{{ file }}

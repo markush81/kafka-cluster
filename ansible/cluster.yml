@@ -4,8 +4,24 @@
   roles:
     - java
     - elasticsearch
-    - kibana  
+    - kibana
     - metricbeat
+  tasks:
+    - name: metricbeat modules enable elasticsearch-xpack
+      become: yes
+      command: metricbeat modules enable elasticsearch-xpack
+
+    - name: metricbeat modules enable kibana-xpack
+      become: yes
+      command: metricbeat modules enable kibana-xpack
+
+    - name: restart metricbeat
+      become: yes
+      systemd:
+        enabled: yes
+        state: restarted
+        name: metricbeat
+        daemon_reload: yes
 
 - hosts: prometheus
   remote_user: vagrant

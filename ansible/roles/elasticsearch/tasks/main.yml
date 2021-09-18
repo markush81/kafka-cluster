@@ -18,6 +18,5 @@
     dest: /etc/elasticsearch/elasticsearch.yml
   notify: "restart elasticsearch"
 
-- name: metricbeat modules enable elasticsearch-xpack
-  become: yes
-  command: metricbeat modules enable elasticsearch-xpack
+- name: run handlers
+  meta: flush_handlers

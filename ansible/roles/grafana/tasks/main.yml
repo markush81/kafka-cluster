@@ -32,7 +32,6 @@
     dest: /etc/grafana/provisioning/datasources/{{ item }}.yml
   with_items:
     - prometheus
-    - elasticsearch
   notify: "restart grafana-server"
 
 - name: setup dashboards

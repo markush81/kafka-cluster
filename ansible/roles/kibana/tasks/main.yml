@@ -21,10 +21,6 @@
 - name: run handlers
   meta: flush_handlers
 
-- name: metricbeat modules enable kibana-xpack
-  become: yes
-  command: metricbeat modules enable kibana-xpack
-
 - name: wait until kibana api is reachable
   uri:
     url: http://{{ inventory_hostname }}:5601/api/status
@@ -34,16 +30,6 @@
   register: result
   until: result.status == 200
 
-#- name: create index patterns
-#  uri:
-#    url: "http://{{ inventory_hostname }}:5601/api/saved_objects/index-pattern/{{ item }}?overwrite=true"
-#    method: POST
-#    headers:
-#      kbn-xsrf: true
-#    body_format: json
-#    body: "{ \"attributes\": { \"title\": \"{{ item }}\", \"timeFieldName\": \"@timestamp\" } }"
-#  with_items:
-
 - name: set default index pattern
   uri:
     url: "http://{{ inventory_hostname }}:5601/api/kibana/settings/defaultIndex"
@@ -52,13 +38,3 @@
       kbn-xsrf: true
     body_format: json
     body: "{ \"value\": \"metricbeat-*\"  }"
-
-#- name: import dashboards
-#  uri:
-#    url: "http://{{ inventory_hostname }}:5601/api/kibana/dashboards/import?force=true"
-#    method: POST
-#    headers:
-#      kbn-xsrf: true
-#    body_format: json
-#    src: dashboards/{{ item }}
-#  with_items:

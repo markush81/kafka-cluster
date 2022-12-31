@@ -1,5 +1,8 @@
 # Kafka Data Cluster
 
+> **Warning**
+> Because this repo is based upon VirtualBox which isn't (and won't be) available vor Apple Silicon based Macs, i have to deprecated this repo.
+
 ## Content
 
 In case you need a local cluster providing Kafka (**with SSL and ACL**) including a monitoring suite.

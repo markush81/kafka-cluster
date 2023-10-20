@@ -2,5 +2,5 @@
 version: "2.8.0"
 kafka: kafka_2.13-{{ version }}
 file: "{{ kafka }}.tgz"
-url: http://mirror.dkd.de/apache/kafka/{{ version }}/{{ file }}
+url: https://archive.apache.org/dist/kafka/{{ version }}/{{ file }}
 prometheus_jmx: https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.15.0/jmx_prometheus_javaagent-0.15.0.jar
